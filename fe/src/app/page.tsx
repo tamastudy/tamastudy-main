@@ -1,17 +1,15 @@
 "use client";
 
-import { Black_Han_Sans } from "@next/font/google";
 import { useState } from "react";
 import styled, { css } from "styled-components";
-
-const inter = Black_Han_Sans({ subsets: ["latin"], weight: "400" });
+import Image from "next/image";
 
 export default function Home() {
   const [activeHamburger, setActiveHamburger] = useState(false);
   return (
     <StyledHomeContainer>
       <StyledHeader>
-        <img src="/t-p.svg" alt="" />
+        <Image src="/t-p.svg" alt="" width={32} height={32} />
         <StyledOpenBtn
           role="button"
           aria-pressed="false"
@@ -24,7 +22,7 @@ export default function Home() {
         </StyledOpenBtn>
       </StyledHeader>
       <StyledMain>
-        <StyledSlogan className={inter.className}>
+        <StyledSlogan>
           함께
           <br />
           <strong>성장</strong>하는
