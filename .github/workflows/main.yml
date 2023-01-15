@@ -22,3 +22,6 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             whoami
+            cd ${{ secrets.DEPLOY_DIR }}
+            sudo git pull origin main
+            docker compose up --build -d
