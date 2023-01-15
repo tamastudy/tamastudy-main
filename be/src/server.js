@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/v1/hello", (req, res) => {
-  res.status(200).json("v1 hello");
+  res.status(200).json("v1 hello auto !!!");
 });
 
 app.listen(port, () => {
