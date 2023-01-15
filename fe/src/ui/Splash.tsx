@@ -9,6 +9,7 @@ interface SplashProps {
 export const Splash: React.FC<SplashProps> = ({ children }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [fullFadeOut, setFullFadeOut] = useState(false);
+  const [isRemoved, setIsRemoved] = useState(false);
   const [appear, setAppear] = useState(false);
 
   useTimeout(() => setFadeOut(true), 300);
@@ -16,18 +17,22 @@ export const Splash: React.FC<SplashProps> = ({ children }) => {
   useTimeout(() => {
     setAppear(true);
   }, 1000);
-
+  useTimeout(() => {
+    setIsRemoved(true);
+  }, 1200);
   return (
     <StyledBody appear={appear}>
-      <StyledSplash isFadeOut={fullFadeOut}>
-        <StyledLogo>
-          <StyledImage
-            src="/splash-logo.svg"
-            alt="loading"
-            isFadeOut={fadeOut}
-          />
-        </StyledLogo>
-      </StyledSplash>
+      {isRemoved ? null : (
+        <StyledSplash isFadeOut={fullFadeOut}>
+          <StyledLogo>
+            <StyledImage
+              src="/splash-logo.svg"
+              alt="loading"
+              isFadeOut={fadeOut}
+            />
+          </StyledLogo>
+        </StyledSplash>
+      )}
       <StyledBg></StyledBg>
       <StyledAnimateContainer>{children}</StyledAnimateContainer>
     </StyledBody>
