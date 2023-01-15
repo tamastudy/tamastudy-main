@@ -3,9 +3,18 @@ services:
   be:
     build:
       context: ./be
-      dockerfile: Dockerfile.be
+      dockerfile: Dockerfile
     command: npm run start
     ports:
-      - "3000:8080"
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+  fe:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - "3000:3000"
     environment:
       NODE_ENV: production
