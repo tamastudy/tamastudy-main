@@ -3,7 +3,7 @@ FROM node:alpine
 # Create app directory
 WORKDIR /usr/src/app
 
-RUN npm install pm2 -g
+RUN npm install pm2 pnpm -g
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -11,7 +11,7 @@ RUN npm install pm2 -g
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN pnpm install --production
 
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -19,8 +19,8 @@ RUN npm install --production
 # Bundle app source
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
 EXPOSE 3000
 
-CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
+CMD [ "pm2-runtime", "start", "pnpm", "--", "start" ]
