@@ -56,7 +56,7 @@ const StyledHeader = styled.header`
 
 const StyledOpenBtn = styled.div<{ isActive?: boolean }>`
   position: relative;
-  background-color: #6500fc;
+  background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   cursor: pointer;
   width: 50px;
   height: 50px;
@@ -117,7 +117,7 @@ const StyledSlogan = styled.h1`
   font-size: 3.6rem;
 
   strong {
-    color: #6500fc;
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   }
 `;
 

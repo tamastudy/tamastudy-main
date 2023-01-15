@@ -32,7 +32,7 @@ const StyledContainer = styled.div<{ isFadeOut?: boolean }>`
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #333;
+  background: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   text-align: center;
   color: #fff;
 
