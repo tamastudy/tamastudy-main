@@ -14,12 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: copy file via ssh password
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
+            whoami
             cd ${{ secrets.DEPLOY_DIR }}
             sudo git pull origin main
