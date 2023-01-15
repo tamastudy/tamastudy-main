@@ -116,8 +116,11 @@ const StyledSlogan = styled.h1`
   margin-top: 64px;
   padding-right: 16px;
   padding-left: 16px;
-  color: #6500fc;
   font-size: 3.6rem;
+
+  strong {
+    color: #6500fc;
+  }
 `;
 
 /**

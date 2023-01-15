@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useLayoutEffect } from "react";
 
 function useTimeout(callback: () => void, delay: number | null) {
   const savedCallback = useRef(callback);
 
   // Remember the latest callback if it changes.
-  useEffect(() => {
+  useLayoutEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
