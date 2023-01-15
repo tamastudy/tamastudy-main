@@ -1,9 +1,10 @@
-FROM node:lts
+FROM node:alpine
 
-RUN npm install pm2 -g
 
 # Create app directory
 WORKDIR /usr/src/app
+
+RUN npm install pm2 -g
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
