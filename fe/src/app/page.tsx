@@ -1,10 +1,21 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "./page.module.css";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { data } = useQuery({
+    queryKey: ["hello"],
+    queryFn: () => {
+      return axios.get("/api/v1/hello");
+    },
+  });
+
+  console.log(data, "debug");
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -18,7 +29,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -87,5 +98,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
