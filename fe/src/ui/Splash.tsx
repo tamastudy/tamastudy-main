@@ -4,9 +4,11 @@ import useTimeout from "@/lib/hooks";
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 
-interface SplashProps {}
+interface SplashProps {
+  children: React.ReactNode;
+}
 
-export const Splash: React.FC<SplashProps> = () => {
+export const Splash: React.FC<SplashProps> = ({ children }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [fullFadeOut, setFullFadeOut] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
@@ -15,16 +17,12 @@ export const Splash: React.FC<SplashProps> = () => {
   useTimeout(() => setFullFadeOut(true), 800);
   useTimeout(() => setIsRemoved(true), 1000);
 
-  if (isRemoved) return null;
+  if (isRemoved) return <>{children}</>;
 
   return (
     <StyledContainer isFadeOut={fullFadeOut}>
       <StyledLogo>
-        <StyledImage
-          src="/splash-logo.svg"
-          alt="loading"
-          isFadeOut={fadeOut}
-        />
+        <StyledImage src="/splash-logo.svg" alt="loading" isFadeOut={fadeOut} />
       </StyledLogo>
       .
     </StyledContainer>
@@ -36,7 +34,7 @@ const StyledContainer = styled.div<{ isFadeOut?: boolean }>`
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #333;
+  background: #6500FC;
   text-align: center;
   color: #fff;
 

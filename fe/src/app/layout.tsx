@@ -15,8 +15,9 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Splash />
-        <QueryProvider>{children}</QueryProvider>
+        <Splash>
+          <QueryProvider>{children}</QueryProvider>
+        </Splash>
       </body>
     </html>
   );

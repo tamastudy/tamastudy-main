@@ -4,14 +4,14 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:slug*',
-        destination: 'http://localhost:8080/:slug*'
+        source: "/api/:slug*",
+        destination: "http://localhost:8080/:slug*",
       },
-    ]
+    ];
   },
   experimental: {
     appDir: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
