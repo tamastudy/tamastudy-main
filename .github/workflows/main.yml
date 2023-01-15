@@ -24,4 +24,4 @@ jobs:
             whoami
             cd ${{ secrets.DEPLOY_DIR }}
             sudo git pull origin main
-            docker compose up --build -d
+            sudo docker compose up --build -d
