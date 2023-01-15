@@ -12,8 +12,8 @@ export const Splash: React.FC<SplashProps> = () => {
   const [isRemoved, setIsRemoved] = useState(false);
 
   useTimeout(() => setFadeOut(true), 300);
-  useTimeout(() => setFullFadeOut(true), 500);
-  useTimeout(() => setIsRemoved(true), 800);
+  useTimeout(() => setFullFadeOut(true), 800);
+  useTimeout(() => setIsRemoved(true), 1000);
 
   if (isRemoved) return null;
 
