@@ -1,21 +1,11 @@
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { GetHello } from "@/ui/GetHello";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { data } = useQuery({
-    queryKey: ["hello"],
-    queryFn: () => {
-      return axios.get("/api/v1/hello");
-    },
-  });
-
-  console.log(data, "debug");
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -97,6 +87,7 @@ export default function Home() {
           </p>
         </a>
       </div>
+      <GetHello />
     </main>
   );
 }
