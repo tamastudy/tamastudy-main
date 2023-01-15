@@ -1,5 +1,3 @@
-"use client";
-
 import useTimeout from "@/lib/hooks";
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";

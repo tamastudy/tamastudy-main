@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, ReactNode, useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
