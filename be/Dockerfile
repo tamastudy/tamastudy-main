@@ -18,6 +18,8 @@ RUN pnpm install
 # Bundle app source
 COPY . .
 
+RUN pnpm run build
+
 EXPOSE 8080
 
-CMD ["pm2-runtime", "src/server.js"]
+CMD [ "pm2-runtime", "start", "pnpm", "--", "start:prod" ]
