@@ -1,4 +1,5 @@
 import { QueryProvider } from "@/ui/client-providers";
+import { Splash } from "@/ui/Splash";
 import "./globals.css";
 
 export default function RootLayout({
@@ -14,6 +15,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
+        <Splash />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
