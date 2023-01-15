@@ -9,25 +9,105 @@ interface SplashProps {
 export const Splash: React.FC<SplashProps> = ({ children }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [fullFadeOut, setFullFadeOut] = useState(false);
-  const [isRemoved, setIsRemoved] = useState(false);
+  const [appear, setAppear] = useState(false);
 
   useTimeout(() => setFadeOut(true), 300);
   useTimeout(() => setFullFadeOut(true), 800);
-  useTimeout(() => setIsRemoved(true), 1000);
-
-  if (isRemoved) return <>{children}</>;
+  useTimeout(() => {
+    setAppear(true);
+  }, 1000);
 
   return (
-    <StyledContainer isFadeOut={fullFadeOut}>
-      <StyledLogo>
-        <StyledImage src="/splash-logo.svg" alt="loading" isFadeOut={fadeOut} />
-      </StyledLogo>
-      .
-    </StyledContainer>
+    <StyledBody appear={appear}>
+      <StyledSplash isFadeOut={fullFadeOut}>
+        <StyledLogo>
+          <StyledImage
+            src="/splash-logo.svg"
+            alt="loading"
+            isFadeOut={fadeOut}
+          />
+        </StyledLogo>
+      </StyledSplash>
+      <StyledBg></StyledBg>
+      <StyledAnimateContainer>{children}</StyledAnimateContainer>
+    </StyledBody>
   );
 };
 
-const StyledContainer = styled.div<{ isFadeOut?: boolean }>`
+const PageAnime = keyframes`
+  0% {
+    transform-origin: left;
+    transform: translateX(-300%) skewX(-45deg);
+  }
+  100% {
+    transform-origin: left;
+    transform: translateX(500%) skewX(-45deg);
+  }
+`;
+
+const PageAnimeAppear = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const StyledBody = styled.div<{ appear?: boolean }>`
+  ${({ appear }) =>
+    appear
+      ? css`
+          ${StyledBg} {
+            display: block;
+            animation-name: ${PageAnime};
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: forwards;
+            content: "";
+            position: fixed;
+            z-index: 999;
+            width: 50%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            transform: translateX(-300%) skewX(-45deg);
+            background: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+          }
+          ${StyledAnimateContainer} {
+            animation-name: ${PageAnimeAppear};
+            animation-duration: 1s;
+            animation-delay: 0.6s;
+            animation-fill-mode: forwards;
+            opacity: 0;
+          }
+        `
+      : css``}
+`;
+
+const fullFadeOutAnime = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+const fadeUpAnime = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const StyledSplash = styled.div<{ isFadeOut?: boolean }>`
   position: fixed;
   z-index: 999;
   width: 100%;
@@ -65,24 +145,10 @@ const StyledImage = styled.img<{ isFadeOut?: boolean }>`
         `};
 `;
 
-const fullFadeOutAnime = keyframes`
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
+const StyledBg = styled.div`
+  display: none;
 `;
 
-const fadeUpAnime = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+const StyledAnimateContainer = styled.div`
+  opacity: 0;
 `;
