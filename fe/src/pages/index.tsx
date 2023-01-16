@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Image from "next/image";
 import StickyBox from "react-sticky-box";
 
@@ -21,6 +21,25 @@ export default function IndexPage() {
             <span></span>
             <span></span>
           </StyledOpenBtn>
+          <StyledGlobalNav isPanelactive={activeHamburger}>
+            <div>
+              <ul>
+                <li>
+                  <a href="#">TOP</a>
+                </li>
+                <li>
+                  <a href="#">BACKGROUND</a>
+                </li>
+                <li>
+                  <a href="#">MEMBERS</a>
+                </li>
+                <li>
+                  <a href="#">CONTACT</a>
+                </li>
+              </ul>
+            </div>
+          </StyledGlobalNav>
+          <StyledCircleBg isCircleActive={activeHamburger} />
         </StyledHeader>
       </StickyBox>
       <StyledContainer>
@@ -112,7 +131,7 @@ const StyledOpenBtn = styled.div<{ isActive?: boolean }>`
   cursor: pointer;
   width: 50px;
   height: 50px;
-
+  z-index: 1000;
   span {
     display: inline-block;
     transition: all 0.4s;
@@ -271,4 +290,88 @@ const StyledSubArea = styled(StickyBox)`
       }
     }
   }
+`;
+
+/**
+ * GlobalNav
+ */
+
+const GnaviAnime = keyframes`
+  0% {opacity: 0}
+  100% {opacity: 1}
+`;
+
+const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
+  position: fixed;
+
+  > div {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  ul {
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+
+    li a {
+      display: inline-block;
+      text-decoration: none;
+      color: #fff;
+      padding: 10px;
+    }
+  }
+
+  ${({ isPanelactive }) =>
+    isPanelactive &&
+    css`
+      z-index: 999;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      > div {
+        display: block;
+      }
+
+      ul {
+        opacity: 1;
+
+        li {
+          animation-name: ${GnaviAnime};
+          animation-duration: 1s;
+          animation-delay: 0.2s;
+          animation-fill-mode: forwards;
+          opacity: 0;
+        }
+      }
+    `};
+`;
+
+const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
+  position: fixed;
+  z-index: 3;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+  transform: scale(0);
+  right: 0;
+  top: 0;
+  transition: all 0.6s;
+
+  ${({ isCircleActive }) =>
+    isCircleActive &&
+    css`
+      transform: scale(50);
+    `};
 `;
