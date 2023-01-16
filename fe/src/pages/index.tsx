@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled, { css, keyframes, useTheme } from "styled-components";
 import Image from "next/image";
 import StickyBox from "react-sticky-box";
@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useScrollBlock } from "@/lib/hooks";
 import { Element, Link as ScrollLink } from "react-scroll";
 import ProgressBar from "react-progressbar-on-scroll";
+import { CSSTransition } from "react-transition-group";
+import parse from "html-react-parser";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -433,7 +435,26 @@ export default function IndexPage() {
               <h2>
                 <strong>F</strong>AQ
               </h2>
-              <div style={{ height: 800 }}></div>
+              <div >
+                <StyledAccordionArea>
+                  <Accordion
+                    title="참가 조건은 어떻게 되나요?"
+                    description="한달 2번 이상 꾸준히 참석하실 분이라면 누구나 참가 가능합니다."
+                  />
+                  <Accordion
+                    title="참석비가 있나요?"
+                    description="장소에 따라 참석비가 있을 수 있습니다. <br />보통 1회 3,000엔 ~ 5,000엔 정도입니다."
+                  />
+                  <Accordion
+                    title="장소는 어디인가요?"
+                    description="장소에 따라 유동적으로 변경됩니다."
+                  />
+                  <Accordion
+                    title="참가 신청은 어떻게 하나요?"
+                    description="아래 Contact 섹션을 이용해주세요."
+                  />
+                </StyledAccordionArea>
+              </div>
             </StyledSection4>
           </Element>
 
@@ -902,3 +923,126 @@ const StyledSection5 = styled.section`
     line-height: 1.6;
   }
 `;
+
+/**
+ * Accordion
+ */
+
+const StyledAccordionArea = styled.ul`
+  list-style: none;
+  width: 96%;
+  max-width: 900px;
+  margin: 0 auto;
+
+  li {
+    margin: 16px 0;
+  }
+
+  section {
+    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+  }
+`;
+
+const StyledAccordionTitle = styled.h4<{ isClose?: boolean }>`
+  position: relative;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: normal;
+  padding: 3% 3% 3% 50px;
+  transition: all 0.5s ease;
+  color: ${({ theme }) => theme.colors?.white ?? "#ffffff"};
+  font-weight: 700;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 2px;
+    background-color: ${({ theme }) => theme.colors?.white ?? "#ffffff"};
+  }
+
+  &::before {
+    top: 48%;
+    left: 15px;
+    transform: rotate(0deg);
+    ${({ isClose }) =>
+      isClose
+        ? css`
+            transform: rotate(45deg);
+          `
+        : css``}
+  }
+
+  &::after {
+    top: 48%;
+    left: 15px;
+    transform: rotate(90deg);
+    ${({ isClose }) =>
+      isClose
+        ? css`
+            transform: rotate(-45deg);
+          `
+        : css``}
+  }
+`;
+const StyledAccordionBox = styled.div`
+  background: ${({ theme }) => theme.colors?.white ?? "#ffffff"};
+  margin: 0 3% 3% 3%;
+  padding: 3%;
+  height: 80px;
+  max-height: 80px;
+  border-radius: 8px;
+  overflow-y: scroll;
+
+  &.accordion-enter {
+    height: 0px;
+  }
+  &.accordion-enter-active {
+    height: 80px;
+    transition: all 0.3s ease;
+  }
+  &.accordion-exit {
+    height: 80px;
+  }
+  &.accordion-exit-active {
+    height: 0px;
+    transition: all 0.3s ease;
+  }
+
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+`;
+
+const Accordion: React.FC<{ title: string; description: string }> = ({
+  title,
+  description,
+}) => {
+  const [inProp, setInProp] = useState(false);
+  const nodeRef = useRef(null);
+  return (
+    <li>
+      <section>
+        <StyledAccordionTitle
+          isClose={inProp}
+          onClick={() => setInProp((prev) => !prev)}
+        >
+          {title}
+        </StyledAccordionTitle>
+        <CSSTransition
+          nodeRef={nodeRef}
+          in={inProp}
+          timeout={200}
+          classNames="accordion"
+          unmountOnExit
+        >
+          <StyledAccordionBox ref={nodeRef}>
+            {parse(description)}
+          </StyledAccordionBox>
+        </CSSTransition>
+      </section>
+    </li>
+  );
+};
