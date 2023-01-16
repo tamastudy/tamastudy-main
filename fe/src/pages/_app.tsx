@@ -1,4 +1,4 @@
-import 'swiper/css';
+import "swiper/css";
 
 import { QueryProvider } from "@/ui/client-providers";
 import { Splash } from "@/ui/Splash";
@@ -52,7 +52,13 @@ body {
   max-width: 100vw;
 }
 
-body {}
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+}
 
 a {
   color: inherit;

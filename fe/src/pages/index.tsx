@@ -158,11 +158,12 @@ export default function IndexPage() {
                 <strong>A</strong>BOUT
               </h2>
               <p>
-                타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 또한
-                공부를 목적으로 모이는 사람들에게 항상 자신의 이익을 위해
-                접근하는 사람들 또한 문제 였습니다. 그래서 저희는 타마스터디를
-                통해 사람들에게 선한 영향력을 주고 외국에서 서로 힘이 되어주는
-                커뮤니티를 만들게 되었습니다.
+                타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 공부를
+                목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는
+                사람들 또한 문제 였습니다. 그래서 저희는 사람들에게 선한
+                영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들기로
+                결심하였습니다. 그 결과 현재까지도 서로 도와주고 함께 성장하는
+                타마스터디를 운영하고 있습니다.
               </p>
             </StyledSection2>
           </Element>
@@ -178,7 +179,7 @@ export default function IndexPage() {
                   spaceBetween={50}
                   slidesPerView={1.4}
                   onSlideChange={() => console.log("slide change")}
-                  autoplay={{ delay: 3000 }}
+                  autoplay={{ delay: 1000 }}
                   onSwiper={(swiper) => console.log(swiper)}
                 >
                   <SwiperSlide>
@@ -288,6 +289,20 @@ export default function IndexPage() {
         </StyledMain>
       </StyledContainer>
       <StyledFooter>
+        <div role="button">
+          <ScrollLink
+            activeClass={"mobile-menu__active"}
+            spy={true}
+            smooth={true}
+            duration={500}
+            to="top"
+            offset={-64}
+            role="link"
+            aria-label={`internal scroll link`}
+          >
+            TOP
+          </ScrollLink>
+        </div>
         <Image
           src="/logo-small.svg"
           width={240}
@@ -469,6 +484,25 @@ const StyledFooter = styled.footer`
   align-items: center;
   padding: 24px;
   background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+  position: relative;
+  > div {
+    position: absolute;
+    top: calc(-50px - 16px);
+    right: 16px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    cursor: pointer;
+    font-size: 0.8rem;
+    &:hover {
+      color: #fff;
+      background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    }
+  }
 `;
 
 /**
@@ -597,8 +631,10 @@ const StyledMemberAvatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 8px;
   img {
     border-radius: 50%;
+    border: 1px solid #eaeaea;
     overflow: hidden;
     width: 80px;
     height: 80px;
