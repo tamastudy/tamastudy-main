@@ -8,6 +8,8 @@ import { useScrollBlock } from "@/lib/hooks";
 import { Element, Link as ScrollLink } from "react-scroll";
 import ProgressBar from "react-progressbar-on-scroll";
 
+const SCROLL_LINK_OFFSET = -64 - 16;
+
 export default function IndexPage() {
   const [activeHamburger, setActiveHamburger] = useState(false);
   const [blockScroll, allowScroll] = useScrollBlock();
@@ -37,7 +39,7 @@ export default function IndexPage() {
                   smooth={true}
                   duration={500}
                   to="top"
-                  offset={-64}
+                  offset={SCROLL_LINK_OFFSET}
                   role="link"
                   aria-label={`internal scroll link`}
                 >
@@ -51,7 +53,7 @@ export default function IndexPage() {
                   smooth={true}
                   duration={500}
                   to="about"
-                  offset={-64}
+                  offset={SCROLL_LINK_OFFSET}
                   role="link"
                   aria-label={`internal scroll link`}
                 >
@@ -65,7 +67,7 @@ export default function IndexPage() {
                   smooth={true}
                   duration={500}
                   to="members"
-                  offset={-64}
+                  offset={SCROLL_LINK_OFFSET}
                   role="link"
                   aria-label={`internal scroll link`}
                 >
@@ -79,7 +81,7 @@ export default function IndexPage() {
                   smooth={true}
                   duration={500}
                   to="faq"
-                  offset={-64}
+                  offset={SCROLL_LINK_OFFSET}
                   role="link"
                   aria-label={`internal scroll link`}
                 >
@@ -93,7 +95,7 @@ export default function IndexPage() {
                   smooth={true}
                   duration={500}
                   to="contact"
-                  offset={-64}
+                  offset={SCROLL_LINK_OFFSET}
                   role="link"
                   aria-label={`internal scroll link`}
                 >
@@ -125,7 +127,7 @@ export default function IndexPage() {
                 smooth={true}
                 duration={500}
                 to="top"
-                offset={-64}
+                offset={SCROLL_LINK_OFFSET}
                 role="link"
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
@@ -140,7 +142,7 @@ export default function IndexPage() {
                 smooth={true}
                 duration={500}
                 to="about"
-                offset={-64}
+                offset={SCROLL_LINK_OFFSET}
                 role="link"
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
@@ -155,7 +157,7 @@ export default function IndexPage() {
                 smooth={true}
                 duration={500}
                 to="members"
-                offset={-64}
+                offset={SCROLL_LINK_OFFSET}
                 role="link"
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
@@ -170,7 +172,7 @@ export default function IndexPage() {
                 smooth={true}
                 duration={500}
                 to="faq"
-                offset={-64}
+                offset={SCROLL_LINK_OFFSET}
                 role="link"
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
@@ -185,7 +187,7 @@ export default function IndexPage() {
                 smooth={true}
                 duration={500}
                 to="contact"
-                offset={-64}
+                offset={SCROLL_LINK_OFFSET}
                 role="link"
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
@@ -265,10 +267,10 @@ export default function IndexPage() {
                 <Swiper
                   breakpoints={{
                     688: {
-                      slidesPerView: 1.4,
+                      slidesPerView: 3,
                     },
                     992: {
-                      slidesPerView: 3,
+                      // slidesPerView: 3,
                     },
                     1312: {
                       slidesPerView: 4,
@@ -373,6 +375,54 @@ export default function IndexPage() {
                       </StyledMemberInfoWrapper>
                     </StyledMemberWrapper>
                   </SwiperSlide>
+
+                  <SwiperSlide>
+                    <StyledMemberWrapper>
+                      <StyledMemberAvatar>
+                        <Image
+                          src="default-avatar.svg"
+                          alt="avatar"
+                          width={80}
+                          height={80}
+                        />
+                      </StyledMemberAvatar>
+                      <StyledMemberInfoWrapper>
+                        <StyledMemberInfoName>
+                          Jeonghan Gam
+                        </StyledMemberInfoName>
+                        <StyledMemberInfoJob>
+                          Software Engineer
+                        </StyledMemberInfoJob>
+                        <StyledMemberInfoJobPlace>
+                          Amazon JP
+                        </StyledMemberInfoJobPlace>
+                      </StyledMemberInfoWrapper>
+                    </StyledMemberWrapper>
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <StyledMemberWrapper>
+                      <StyledMemberAvatar>
+                        <Image
+                          src="default-avatar.svg"
+                          alt="avatar"
+                          width={80}
+                          height={80}
+                        />
+                      </StyledMemberAvatar>
+                      <StyledMemberInfoWrapper>
+                        <StyledMemberInfoName>
+                          Jeonghan Gam
+                        </StyledMemberInfoName>
+                        <StyledMemberInfoJob>
+                          Software Engineer
+                        </StyledMemberInfoJob>
+                        <StyledMemberInfoJobPlace>
+                          Amazon JP
+                        </StyledMemberInfoJobPlace>
+                      </StyledMemberInfoWrapper>
+                    </StyledMemberWrapper>
+                  </SwiperSlide>
                 </Swiper>
               </StyledSwiperWrapper>
             </StyledSection3>
@@ -405,7 +455,7 @@ export default function IndexPage() {
             smooth={true}
             duration={500}
             to="top"
-            offset={-64}
+            offset={SCROLL_LINK_OFFSET}
             role="link"
             aria-label={`internal scroll link`}
           >
@@ -570,7 +620,7 @@ const StyledSlogan = styled.h1`
 `;
 
 /**
- * Section 2 - Introduction
+ * Section 2 - Members
  */
 
 const StyledSection2 = styled.section`
@@ -620,6 +670,50 @@ const StyledSwiperWrapper = styled.div`
   isolation: isolate;
   position: relative;
   z-index: 1;
+`;
+
+/**
+ * Member
+ */
+const StyledMemberWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledMemberAvatar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+  img {
+    border-radius: 50%;
+    border: 1px solid #eaeaea;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+  }
+`;
+const StyledMemberInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const StyledMemberInfoName = styled.h4`
+  font-size: 1.66rem;
+  margin-bottom: 4px;
+  font-weight: 700;
+`;
+const StyledMemberInfoJob = styled.span`
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+`;
+const StyledMemberInfoJobPlace = styled.span`
+  font-size: 0.8rem;
+  color: #3c3c3c;
 `;
 
 /**
@@ -762,50 +856,6 @@ const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
     css`
       transform: scale(50);
     `};
-`;
-
-/**
- * Member
- */
-const StyledMemberWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-const StyledMemberAvatar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 48px;
-  img {
-    border-radius: 50%;
-    border: 1px solid #eaeaea;
-    overflow: hidden;
-    width: 80px;
-    height: 80px;
-  }
-`;
-const StyledMemberInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const StyledMemberInfoName = styled.h4`
-  font-size: 1.66rem;
-  margin-bottom: 4px;
-  font-weight: 700;
-`;
-const StyledMemberInfoJob = styled.span`
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-`;
-const StyledMemberInfoJobPlace = styled.span`
-  font-size: 0.8rem;
-  color: #3c3c3c;
 `;
 
 /**
