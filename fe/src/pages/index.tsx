@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
 import StickyBox from "react-sticky-box";
@@ -46,13 +46,39 @@ export default function IndexPage() {
         </StyledSubArea>
 
         <StyledMain>
-          <StyledSlogan>
-            함께
-            <br />
-            <strong>성장</strong>하는
-            <br />
-            즐거움
-          </StyledSlogan>
+          <StyledSection1>
+            <StyledSlogan>
+              함께
+              <br />
+              <strong>성장</strong>하는
+              <br />
+              즐거움
+            </StyledSlogan>
+          </StyledSection1>
+          <StyledSection2>
+            <h2>
+              <strong>B</strong>ACKGROUND
+            </h2>
+            <p>
+              타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 또한 공부를
+              목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는 사람들
+              또한 문제 였습니다. 그래서 저희는 타마스터디를 통해 사람들에게
+              선한 영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들게
+              되었습니다.
+            </p>
+          </StyledSection2>
+          <StyledSection3>
+            <h2>
+              <strong>M</strong>embers
+            </h2>
+            <p>
+              타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 또한 공부를
+              목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는 사람들
+              또한 문제 였습니다. 그래서 저희는 타마스터디를 통해 사람들에게
+              선한 영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들게
+              되었습니다.
+            </p>
+          </StyledSection3>
         </StyledMain>
       </StyledContainer>
       <StyledFooter></StyledFooter>
@@ -145,16 +171,71 @@ const StyledContainer = styled.div`
  */
 const StyledMain = styled.main`
   flex: 1;
-  height: 600vh;
+  margin-left: 8px;
+  margin-right: 16px;
+  display: flex;
+  flex-direction: column;
 `;
+
+/**
+ * Section 1
+ */
+
+const StyledSection1 = styled.section`
+  padding-top: 64px;
+  height: calc(100vh - 80px);
+`;
+
 const StyledSlogan = styled.h1`
-  margin-top: 64px;
   padding-right: 16px;
   padding-left: 16px;
   font-size: 3.6rem;
 
   strong {
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+  }
+`;
+
+/**
+ * Section 2 - Introduction
+ */
+
+const StyledSection2 = styled.section`
+  margin-bottom: 128px;
+
+  h2 {
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    font-size: 2rem;
+    strong {
+      font-size: 2.8rem;
+    }
+    margin-bottom: 8px;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+`;
+
+/**
+ * Section 2 - Members
+ */
+
+const StyledSection3 = styled.section`
+  margin-bottom: 128px;
+
+  h2 {
+    text-align: right;
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    font-size: 2rem;
+    strong {
+      font-size: 2.8rem;
+    }
+    margin-bottom: 8px;
+  }
+
+  p {
+    line-height: 1.6;
   }
 `;
 
