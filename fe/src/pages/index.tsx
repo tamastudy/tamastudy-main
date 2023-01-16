@@ -933,8 +933,7 @@ const StyledSection5 = styled.section`
 
 const StyledAccordionArea = styled.ul`
   list-style: none;
-  width: 96%;
-  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
 
   li {
