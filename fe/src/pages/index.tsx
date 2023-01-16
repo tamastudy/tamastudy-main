@@ -72,7 +72,7 @@ export default function IndexPage() {
                 aria-label={`internal scroll link`}
                 onClick={handleHamburger}
               >
-                <span>BACKGROUND</span>
+                <span>ABOUT</span>
               </ScrollLink>
             </li>
             <li>
