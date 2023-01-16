@@ -4,13 +4,54 @@ import { QueryProvider } from "@/ui/client-providers";
 import { Splash } from "@/ui/Splash";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import {
+  createGlobalStyle,
+  css,
+  CSSObject,
+  FlattenSimpleInterpolation,
+  SimpleInterpolation,
+  ThemeProvider,
+} from "styled-components";
 import { Roboto } from "@next/font/google";
 
 const roboto = Roboto({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
+
+export const theme = {
+  colors: {
+    primary: "#6500fc",
+    white: "#ffffff",
+    black: "#000000",
+  },
+  media: {
+    tablet: (
+      first: CSSObject | TemplateStringsArray,
+      ...interpolations: SimpleInterpolation[]
+    ): FlattenSimpleInterpolation => css`
+      @media (min-width: 43rem) {
+        ${css(first, ...interpolations)}
+      }
+    `,
+    laptop: (
+      first: CSSObject | TemplateStringsArray,
+      ...interpolations: SimpleInterpolation[]
+    ): FlattenSimpleInterpolation => css`
+      @media (min-width: 62rem) {
+        ${css(first, ...interpolations)}
+      }
+    `,
+    desktop: (
+      first: CSSObject | TemplateStringsArray,
+      ...interpolations: SimpleInterpolation[]
+    ): FlattenSimpleInterpolation => css`
+      @media (min-width: 82rem) {
+        ${css(first, ...interpolations)}
+      }
+    `,
+  },
+} as const;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,13 +62,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={roboto.className}>
-        <ThemeProvider
-          theme={{
-            colors: {
-              primary: "#6500fc",
-            },
-          }}
-        >
+        <ThemeProvider theme={theme}>
           <GlobalStyles />
           <Splash>
             <QueryProvider>

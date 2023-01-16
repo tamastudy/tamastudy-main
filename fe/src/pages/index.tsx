@@ -5,8 +5,7 @@ import StickyBox from "react-sticky-box";
 import { Autoplay, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useScrollBlock } from "@/lib/hooks";
-import { Link as ScrollLink } from "react-scroll";
-import { Element } from "react-scroll";
+import { Element, Link as ScrollLink } from "react-scroll";
 import ProgressBar from "react-progressbar-on-scroll";
 
 export default function IndexPage() {
@@ -29,6 +28,80 @@ export default function IndexPage() {
       <StickyBox>
         <StyledHeader>
           <Image src="/t-p.svg" alt="" width={32} height={32} />
+          <div>
+            <ul>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="top"
+                  offset={-64}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                >
+                  <span>TOP</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="about"
+                  offset={-64}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                >
+                  <span>ABOUT</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="members"
+                  offset={-64}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                >
+                  <span>MEMBERS</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="faq"
+                  offset={-64}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                >
+                  <span>FAQ</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="contact"
+                  offset={-64}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                >
+                  <span>CONTACT</span>
+                </ScrollLink>
+              </li>
+            </ul>
+          </div>
         </StyledHeader>
       </StickyBox>
       <StyledOpenBtn
@@ -47,7 +120,7 @@ export default function IndexPage() {
           <ul>
             <li>
               <ScrollLink
-                activeClass={"mobile-menu__active"}
+                activeClass={"active"}
                 spy={true}
                 smooth={true}
                 duration={500}
@@ -62,7 +135,7 @@ export default function IndexPage() {
             </li>
             <li>
               <ScrollLink
-                activeClass={"mobile-menu__active"}
+                activeClass={"active"}
                 spy={true}
                 smooth={true}
                 duration={500}
@@ -77,7 +150,7 @@ export default function IndexPage() {
             </li>
             <li>
               <ScrollLink
-                activeClass={"mobile-menu__active"}
+                activeClass={"active"}
                 spy={true}
                 smooth={true}
                 duration={500}
@@ -92,7 +165,22 @@ export default function IndexPage() {
             </li>
             <li>
               <ScrollLink
-                activeClass={"mobile-menu__active"}
+                activeClass={"active"}
+                spy={true}
+                smooth={true}
+                duration={500}
+                to="faq"
+                offset={-64}
+                role="link"
+                aria-label={`internal scroll link`}
+                onClick={handleHamburger}
+              >
+                <span>FAQ</span>
+              </ScrollLink>
+            </li>
+            <li>
+              <ScrollLink
+                activeClass={"active"}
                 spy={true}
                 smooth={true}
                 duration={500}
@@ -175,6 +263,17 @@ export default function IndexPage() {
               </h2>
               <StyledSwiperWrapper>
                 <Swiper
+                  breakpoints={{
+                    688: {
+                      slidesPerView: 1.4,
+                    },
+                    992: {
+                      slidesPerView: 3,
+                    },
+                    1312: {
+                      slidesPerView: 4,
+                    },
+                  }}
                   modules={[Autoplay, A11y]}
                   spaceBetween={50}
                   slidesPerView={1.4}
@@ -279,19 +378,29 @@ export default function IndexPage() {
             </StyledSection3>
           </Element>
 
-          <Element name="contact">
+          <Element name="faq">
             <StyledSection4>
+              <h2>
+                <strong>F</strong>AQ
+              </h2>
+              <div style={{ height: 800 }}></div>
+            </StyledSection4>
+          </Element>
+
+          <Element name="contact">
+            <StyledSection5>
               <h2>
                 <strong>C</strong>ontact
               </h2>
-            </StyledSection4>
+              <div style={{ height: 800 }}></div>
+            </StyledSection5>
           </Element>
         </StyledMain>
       </StyledContainer>
       <StyledFooter>
         <div role="button">
           <ScrollLink
-            activeClass={"mobile-menu__active"}
+            activeClass={"active"}
             spy={true}
             smooth={true}
             duration={500}
@@ -314,7 +423,12 @@ export default function IndexPage() {
   );
 }
 
-const StyledIndexContainer = styled.div``;
+const StyledIndexContainer = styled.div`
+  ${({ theme }) => theme.media.laptop`
+    width: 62rem;
+    margin: 0 auto;
+  `};
+`;
 const StyledHeader = styled.header`
   position: relative;
   width: 100%;
@@ -329,6 +443,31 @@ const StyledHeader = styled.header`
     width: 32px;
     height: 32px;
     object-fit: contain;
+  }
+  > div {
+    display: none;
+
+    ${({ theme }) => theme.media.laptop`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    `};
+    ul {
+      display: flex;
+      list-style: none;
+      li {
+        cursor: pointer;
+        &:not(:last-of-type) {
+          margin-right: 32px;
+        }
+        a {
+          &.active {
+            font-weight: 700;
+            color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -384,6 +523,10 @@ const StyledOpenBtn = styled.div<{ isActive?: boolean }>`
           }
         `
       : css``};
+
+  ${({ theme }) => theme.media.laptop`
+    display: none;
+  `};
 `;
 
 /**
@@ -439,7 +582,10 @@ const StyledSection2 = styled.section`
     strong {
       font-size: 2.8rem;
     }
-    margin-bottom: 8px;
+    margin-bottom: 48px;
+    ${({ theme }) => theme.media.laptop`
+      text-align: center;
+    `};
   }
 
   p {
@@ -454,13 +600,15 @@ const StyledSection2 = styled.section`
 const StyledSection3 = styled.section`
   margin-bottom: 248px;
   h2 {
-    text-align: right;
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
     font-size: 2rem;
     strong {
       font-size: 2.8rem;
     }
     margin-bottom: 48px;
+    ${({ theme }) => theme.media.laptop`
+      text-align: center;
+    `};
   }
 
   p {
@@ -631,7 +779,7 @@ const StyledMemberAvatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 48px;
   img {
     border-radius: 50%;
     border: 1px solid #eaeaea;
@@ -661,7 +809,7 @@ const StyledMemberInfoJobPlace = styled.span`
 `;
 
 /**
- * Contact
+ * Section 4 - FAQ
  */
 const StyledSection4 = styled.section`
   margin-bottom: 248px;
@@ -671,7 +819,33 @@ const StyledSection4 = styled.section`
     strong {
       font-size: 2.8rem;
     }
-    margin-bottom: 8px;
+    margin-bottom: 48px;
+    ${({ theme }) => theme.media.laptop`
+      text-align: center;
+    `};
+  }
+
+  p {
+    line-height: 1.6;
+  }
+`;
+
+/**
+ * Section 5 - Contact
+ */
+const StyledSection5 = styled.section`
+  margin-bottom: 248px;
+
+  h2 {
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    font-size: 2rem;
+    strong {
+      font-size: 2.8rem;
+    }
+    margin-bottom: 48px;
+    ${({ theme }) => theme.media.laptop`
+      text-align: center;
+    `};
   }
 
   p {
