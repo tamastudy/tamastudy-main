@@ -1,14 +1,18 @@
 import { useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes, useTheme } from "styled-components";
 import Image from "next/image";
 import StickyBox from "react-sticky-box";
+import { Autoplay, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useScrollBlock } from "@/lib/hooks";
 import { Link as ScrollLink } from "react-scroll";
 import { Element } from "react-scroll";
+import ProgressBar from "react-progressbar-on-scroll";
+
 export default function IndexPage() {
   const [activeHamburger, setActiveHamburger] = useState(false);
   const [blockScroll, allowScroll] = useScrollBlock();
+  const theme = useTheme();
 
   const handleHamburger = () => {
     if (activeHamburger) {
@@ -21,6 +25,7 @@ export default function IndexPage() {
 
   return (
     <StyledIndexContainer>
+      <ProgressBar color={theme.colors?.primary ?? "#6500fc"} />
       <StickyBox>
         <StyledHeader>
           <Image src="/t-p.svg" alt="" width={32} height={32} />
@@ -61,7 +66,7 @@ export default function IndexPage() {
                 spy={true}
                 smooth={true}
                 duration={500}
-                to="background"
+                to="about"
                 offset={-64}
                 role="link"
                 aria-label={`internal scroll link`}
@@ -147,10 +152,10 @@ export default function IndexPage() {
             </StyledSection1>
           </Element>
 
-          <Element name="background">
+          <Element name="about">
             <StyledSection2>
               <h2>
-                <strong>B</strong>ACKGROUND
+                <strong>A</strong>BOUT
               </h2>
               <p>
                 타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 또한
@@ -169,8 +174,11 @@ export default function IndexPage() {
               </h2>
               <StyledSwiperWrapper>
                 <Swiper
-                  slidesPerView={1.5}
+                  modules={[Autoplay, A11y]}
+                  spaceBetween={50}
+                  slidesPerView={1.4}
                   onSlideChange={() => console.log("slide change")}
+                  autoplay={{ delay: 3000 }}
                   onSwiper={(swiper) => console.log(swiper)}
                 >
                   <SwiperSlide>
@@ -437,7 +445,7 @@ const StyledSection3 = styled.section`
     strong {
       font-size: 2.8rem;
     }
-    margin-bottom: 8px;
+    margin-bottom: 48px;
   }
 
   p {
@@ -557,7 +565,7 @@ const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
 
 const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
   position: fixed;
-  z-index: 3;
+  z-index: 5;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -572,14 +580,6 @@ const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
     css`
       transform: scale(50);
     `};
-`;
-
-/**
- * Swiper
- */
-const StyledSwiper = styled(Swiper)`
-  width: 100%;
-  height: 240px;
 `;
 
 /**
