@@ -943,6 +943,7 @@ const StyledAccordionArea = styled.ul`
 
   section {
     border-radius: 8px;
+    overflow: hidden;
     border: 1px solid ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
     background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   }
@@ -993,30 +994,30 @@ const StyledAccordionTitle = styled.h4<{ isClose?: boolean }>`
 `;
 const StyledAccordionBox = styled.div`
   background: ${({ theme }) => theme.colors?.white ?? "#ffffff"};
-  margin: 0 3% 3% 3%;
-  padding: 3%;
-  height: 80px;
-  max-height: 80px;
-  border-radius: 8px;
-  overflow-y: scroll;
+
+  height: 160px;
+  max-height: 160px;
 
   &.accordion-enter {
     height: 0px;
   }
   &.accordion-enter-active {
-    height: 80px;
+    height: 160px;
     transition: all 0.3s ease;
   }
   &.accordion-exit {
-    height: 80px;
+    height: 160px;
   }
   &.accordion-exit-active {
     height: 0px;
     transition: all 0.3s ease;
   }
+  p {
 
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+    padding: 24px;
+    font-size: 0.8rem;
+    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
+  }
 `;
 
 const Accordion: React.FC<{ title: string; description: string }> = ({
@@ -1037,12 +1038,12 @@ const Accordion: React.FC<{ title: string; description: string }> = ({
         <CSSTransition
           nodeRef={nodeRef}
           in={inProp}
-          timeout={200}
+          timeout={300}
           classNames="accordion"
           unmountOnExit
         >
           <StyledAccordionBox ref={nodeRef}>
-            {parse(description)}
+            <p>{parse(description)}</p>
           </StyledAccordionBox>
         </CSSTransition>
       </section>
