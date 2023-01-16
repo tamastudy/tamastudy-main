@@ -1,41 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Image from "next/image";
+import StickyBox from "react-sticky-box";
 
 export default function IndexPage() {
   const [activeHamburger, setActiveHamburger] = useState(false);
+
   return (
     <StyledIndexContainer>
-      <StyledHeader>
-        <Image src="/t-p.svg" alt="" width={32} height={32} />
-        <StyledOpenBtn
-          role="button"
-          aria-pressed="false"
-          onClick={() => setActiveHamburger(!activeHamburger)}
-          isActive={activeHamburger}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </StyledOpenBtn>
-      </StyledHeader>
-      <StyledMain>
-        <StyledSlogan>
-          함께
-          <br />
-          <strong>성장</strong>하는
-          <br />
-          즐거움
-        </StyledSlogan>
-      </StyledMain>
+      <StickyBox>
+        <StyledHeader>
+          <Image src="/t-p.svg" alt="" width={32} height={32} />
+          <StyledOpenBtn
+            role="button"
+            aria-pressed="false"
+            onClick={() => setActiveHamburger(!activeHamburger)}
+            isActive={activeHamburger}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </StyledOpenBtn>
+        </StyledHeader>
+      </StickyBox>
+      <StyledContainer>
+        <StyledSubArea>
+          <nav>
+            <ul id="g-navi">
+              <li>
+                <a
+                  href="https://www.instagram.com/tamastudy__tokyo/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="/insta.svg" alt="instagram" />
+                </a>
+              </li>
+              <li>
+                <a href="" target="_blank" rel="noreferrer">
+                  <img src="/twitter-outlined.svg" alt="twitter" />
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </StyledSubArea>
+
+        <StyledMain>
+          <StyledSlogan>
+            함께
+            <br />
+            <strong>성장</strong>하는
+            <br />
+            즐거움
+          </StyledSlogan>
+        </StyledMain>
+      </StyledContainer>
       <StyledFooter></StyledFooter>
     </StyledIndexContainer>
   );
 }
 
-const StyledIndexContainer = styled.div`
-  position: relative;
-`;
+const StyledIndexContainer = styled.div``;
 const StyledHeader = styled.header`
   position: sticky;
   height: 80px;
@@ -47,6 +72,7 @@ const StyledHeader = styled.header`
   box-sizing: border-box;
   padding-right: 16px;
   padding-left: 16px;
+  background: linear-gradient(to bottom, #fff, #fff 80%, #fff 30%, transparent);
   img {
     width: 32px;
     height: 32px;
@@ -107,9 +133,20 @@ const StyledOpenBtn = styled.div<{ isActive?: boolean }>`
 `;
 
 /**
+ * Container
+ */
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+/**
  * Main
  */
-const StyledMain = styled.main``;
+const StyledMain = styled.main`
+  flex: 1;
+  height: 600vh;
+`;
 const StyledSlogan = styled.h1`
   margin-top: 64px;
   padding-right: 16px;
@@ -126,3 +163,31 @@ const StyledSlogan = styled.h1`
  */
 
 const StyledFooter = styled.footer``;
+
+/**
+ * Aside
+ */
+const StyledSubArea = styled(StickyBox)`
+  height: 100vh;
+  nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      li {
+        a {
+          img {
+            width: 22px;
+            height: 22px;
+          }
+        }
+      }
+    }
+  }
+`;
