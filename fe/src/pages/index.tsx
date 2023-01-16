@@ -9,6 +9,9 @@ import { Element, Link as ScrollLink } from "react-scroll";
 import ProgressBar from "react-progressbar-on-scroll";
 import { CSSTransition } from "react-transition-group";
 import parse from "html-react-parser";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -272,7 +275,7 @@ export default function IndexPage() {
                       slidesPerView: 3,
                     },
                     992: {
-                      // slidesPerView: 3,
+                      slidesPerView: 3,
                     },
                     1312: {
                       slidesPerView: 4,
@@ -435,7 +438,7 @@ export default function IndexPage() {
               <h2>
                 <strong>F</strong>AQ
               </h2>
-              <div >
+              <div>
                 <StyledAccordionArea>
                   <Accordion
                     title="참가 조건은 어떻게 되나요?"
@@ -463,7 +466,7 @@ export default function IndexPage() {
               <h2>
                 <strong>C</strong>ontact
               </h2>
-              <div style={{ height: 800 }}></div>
+              <ContactForm />
             </StyledSection5>
           </Element>
         </StyledMain>
@@ -1046,3 +1049,196 @@ const Accordion: React.FC<{ title: string; description: string }> = ({
     </li>
   );
 };
+
+interface IFormInputs {
+  username: string;
+  email: string;
+  age: number;
+  message: string;
+  kakaoId?: string;
+  lineId?: string;
+}
+
+const schema = yup
+  .object({
+    username: yup
+      .string()
+      .required("성함을 입력해주세요.")
+      .typeError("문자를 입력해주세요."),
+    email: yup
+      .string()
+      .email("이메일 양식으로 입력해주세요.")
+      .required("이메일을 입력해주세요."),
+    age: yup
+      .number()
+      .required("나이를 입력해주세요.")
+      .typeError("숫자를 입력해주세요."),
+    message: yup
+      .string()
+      .required("메시지를 입력해주세요.")
+      .typeError("문자를 입력해주세요."),
+    kakaoId: yup.string().typeError("문자를 입력해주세요."),
+    lineId: yup.string().typeError("문자를 입력해주세요."),
+  })
+  .required();
+
+const generatePlaceholder = (name: string) => `${name}을/를 입력해주세요.`;
+
+const ContactForm: React.FC<any> = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = (data: IFormInputs) => alert(JSON.stringify(data, null, 2));
+
+  return (
+    <StyledContactForm onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label htmlFor="username">성함</label>
+        <div>
+          <input
+            {...register("username")}
+            id="username"
+            placeholder={generatePlaceholder("성함")}
+          />
+          <p>{errors.username?.message}</p>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="email">이메일</label>
+        <div>
+          <input
+            {...register("email")}
+            id="email"
+            type="email"
+            placeholder={generatePlaceholder("이메일")}
+          />
+          <p>{errors.email?.message}</p>
+        </div>
+      </div>
+      
+      <div>
+        <label htmlFor="age">나이</label>
+        <div>
+          <input
+            {...register("age")}
+            id="age"
+            type="number"
+            defaultValue={25}
+            placeholder={generatePlaceholder("나이")}
+          />
+          <p>{errors.age?.message}</p>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="message">메시지</label>
+        <div>
+          <textarea
+            {...register("message")}
+            id="message"
+            placeholder={generatePlaceholder("메시지")}
+          />
+          <p>{errors.message?.message}</p>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="lineId">라인</label>
+        <div>
+          <input
+            {...register("lineId")}
+            id="lineId"
+            placeholder={generatePlaceholder("라인 아이디")}
+          />
+          <p>{errors.lineId?.message}</p>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="kakaoId">카카오</label>
+        <div>
+          <input
+            {...register("kakaoId")}
+            id="kakaoId"
+            placeholder={generatePlaceholder("카카오 아이디")}
+          />
+          <p>{errors.kakaoId?.message}</p>
+        </div>
+      </div>
+      <button type="submit">제출</button>
+    </StyledContactForm>
+  );
+};
+
+const StyledContactForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+  }
+
+  textarea {
+    width: 100%;
+    height: calc(48px * 3);
+    resize: none;
+    font-family: sans-serif;
+    padding: 8px;
+  }
+
+  /* error message */
+  p {
+    margin-top: 4px;
+    color: red;
+    font-size: 0.8rem;
+  }
+
+  > div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 0;
+    min-width: 0;
+    margin-bottom: 16px;
+    > label {
+      flex: 1;
+      text-align: left;
+      margin-top: 8px;
+    }
+    > div {
+      flex: 4;
+    }
+  }
+
+  button {
+    margin-top: 16px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 16px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: 1px solid ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
+    outline: none;
+    transition: all 0.4s ease-out;
+    background: inherit;
+
+    &:hover {
+      border-color: transparent;
+      color: #fff;
+      background: linear-gradient(
+        270deg,
+        ${({ theme }) => theme.colors.primary} 0%,
+        #fff 60%,
+        #fff 100%
+      );
+      background-size: 200% auto;
+      background-position: right center;
+      box-shadow: 0 5px 10px rgb(250, 108, 159, 0.4);
+    }
+  }
+`;
