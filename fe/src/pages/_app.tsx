@@ -1,3 +1,5 @@
+import 'swiper/css';
+
 import { QueryProvider } from "@/ui/client-providers";
 import { Splash } from "@/ui/Splash";
 import type { AppProps } from "next/app";
