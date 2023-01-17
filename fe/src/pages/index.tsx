@@ -271,23 +271,57 @@ export default function IndexPage() {
               </h2>
               <StyledSwiperWrapper>
                 <Swiper
-                  breakpoints={{
-                    688: {
-                      slidesPerView: 2 + 2 * 0.2,
-                    },
-                    992: {
-                      slidesPerView: 3 + 3 * 0.2,
-                    },
-                    1312: {
-                      slidesPerView: 4 + 4 * 0.2,
-                    },
-                  }}
                   modules={[A11y]}
                   spaceBetween={16}
-                  slidesPerView={1 + 1 * 0.2}
-                  onSlideChange={() => console.log("slide change")}
-                  onSwiper={(swiper) => console.log(swiper)}
+                  slidesPerView="auto"
+                  grabCursor
                 >
+                  <SwiperSlide>
+                    <UserCard
+                      username={"Jongseok Lee"}
+                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
+                      email={"jonsoku.dev@gmail.com"}
+                      profileImg={"/members/profile-images/jongseok-lee.png"}
+                      jobTitle={"Frontend Engineer"}
+                      jobPlace={"LINE"}
+                      phone={"(82) 080-7708-3832"}
+                      address={"Tokyo, Japan"}
+                      customLink={{
+                        link: "https://naver.com",
+                        text: "My Homepage",
+                      }}
+                      sns={{
+                        linkedIn: "jongseok-lee-785216191",
+                        facebook: "",
+                        instagram: "",
+                        twitter: "",
+                      }}
+                    />
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <UserCard
+                      username={"Jongseok Lee"}
+                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
+                      email={"jonsoku.dev@gmail.com"}
+                      profileImg={"/members/profile-images/jongseok-lee.png"}
+                      jobTitle={"Frontend Engineer"}
+                      jobPlace={"LINE"}
+                      phone={"(82) 080-7708-3832"}
+                      address={"Tokyo, Japan"}
+                      customLink={{
+                        link: "https://naver.com",
+                        text: "My Homepage",
+                      }}
+                      sns={{
+                        linkedIn: "jongseok-lee-785216191",
+                        facebook: "",
+                        instagram: "",
+                        twitter: "",
+                      }}
+                    />
+                  </SwiperSlide>
+
                   <SwiperSlide>
                     <UserCard
                       username={"Jongseok Lee"}
@@ -621,6 +655,9 @@ const StyledSwiperWrapper = styled.div`
   isolation: isolate;
   position: relative;
   z-index: 1;
+  .swiper-slide {
+    width: auto;
+  }
 `;
 
 /**
