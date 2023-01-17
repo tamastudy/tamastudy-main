@@ -18,4 +18,5 @@ export interface User {
     instagram?: string;
     twitter?: string;
   };
+  bgImage?: string;
 }

@@ -1,24 +1,17 @@
-import React, { ReactElement } from "react";
 import Document, {
-  Html,
+  DocumentContext,
   Head,
+  Html,
   Main,
   NextScript,
-  DocumentInitialProps,
-  DocumentContext,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-// NEXT.JS CUSTOM DOCUMENT
-// https://nextjs.org/docs/advanced-features/custom-document
-
-export default class MyDocument extends Document {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
+class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const originalRenderPage = ctx.renderPage;
-
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -29,22 +22,21 @@ export default class MyDocument extends Document {
       const initialProps = await Document.getInitialProps(ctx);
       return {
         ...initialProps,
-        styles: [
+        styles: (
           <>
             {initialProps.styles}
             {sheet.getStyleElement()}
-          </>,
-        ],
+          </>
+        ),
       };
     } finally {
       sheet.seal();
     }
   }
 
-  render(): ReactElement {
+  render() {
     return (
-      <Html lang="ko">
-        <title>TAMASTUDY</title>
+      <Html>
         <Head />
         <body>
           <Main />
@@ -54,3 +46,5 @@ export default class MyDocument extends Document {
     );
   }
 }
+
+export default MyDocument;

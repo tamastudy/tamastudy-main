@@ -3,7 +3,7 @@ import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { Suspense, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ProgressBar from "react-progressbar-on-scroll";
 import { Element, Link as ScrollLink } from "react-scroll";
@@ -14,12 +14,24 @@ import { A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
 // Fetching data from the JSON file
-import fsPromises from "fs/promises";
-import path from "path";
 import { User } from "@/types/interfaces";
-import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { useQuery } from "@tanstack/react-query";
+import fsPromises from "fs/promises";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import path from "path";
+import { ErrorBoundary } from "react-error-boundary";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
+
+function ErrorFallback({ error, resetErrorBoundary }: any) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
 
 function shuffle<T>(array: T[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -35,14 +47,18 @@ function shuffle<T>(array: T[]) {
   return array;
 }
 
-export const getStaticProps: GetStaticProps<{ users: User[] }> = async () => {
+export const getServerSideProps: GetServerSideProps<{
+  users: User[];
+}> = async () => {
   const filePath = path.join(process.cwd(), "src/data/user-cards.json");
   const jsonData = await fsPromises.readFile(filePath);
   const objectData: User[] = JSON.parse(jsonData.toString());
 
   return {
     props: {
-      users: objectData,
+      users: shuffle(objectData).map((user) => ({
+        ...user,
+      })),
     },
   };
 };
@@ -52,12 +68,19 @@ interface IndexPageProps {
 }
 
 const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
-  console.log({ users });
   const [activeHamburger, setActiveHamburger] = useState(false);
   const [blockScroll, allowScroll] = useScrollBlock();
   const theme = useTheme();
 
-  useEffect(() => {});
+  const { data: userData } = useQuery<User[]>(
+    ["users"],
+    () => {
+      return users;
+    },
+    {
+      initialData: users,
+    }
+  );
 
   const handleHamburger = () => {
     if (activeHamburger) {
@@ -307,20 +330,32 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
               <h2>
                 <strong>M</strong>embers
               </h2>
-              <StyledSwiperWrapper>
-                <Swiper
-                  modules={[A11y]}
-                  spaceBetween={16}
-                  slidesPerView="auto"
-                  grabCursor
-                >
-                  {shuffle(users).map((user) => (
-                    <SwiperSlide key={user.id}>
-                      <UserCard {...user} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </StyledSwiperWrapper>
+              <ErrorBoundary
+                FallbackComponent={ErrorFallback}
+                onReset={() => {
+                  // reset the state of your app so the error doesn't happen again
+                }}
+              >
+                <Suspense fallback={<p>Loading member...</p>}>
+                  <StyledSwiperWrapper>
+                    <Swiper
+                      modules={[A11y]}
+                      spaceBetween={16}
+                      slidesPerView="auto"
+                      grabCursor
+                    >
+                      {userData.map((user, userIndex) => (
+                        <SwiperSlide key={user.id}>
+                          <UserCard
+                            {...user}
+                            bgNum={userData.length % (userIndex + 1)}
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </StyledSwiperWrapper>
+                </Suspense>
+              </ErrorBoundary>
             </StyledSection3>
           </Element>
 
@@ -526,7 +561,7 @@ const StyledSection1 = styled.section`
   height: calc(100vh - 64px);
 `;
 
-const StyledSlogan = styled.h1`
+const StyledSlogan = styled.div`
   padding-right: 16px;
   padding-left: 16px;
   font-size: 3.6rem;

@@ -1,6 +1,6 @@
 import "swiper/css";
 
-import { QueryProvider } from "@/ui/client-providers";
+import { ReactQueryProvider } from "@/ui/ReactQueryProvider";
 import { Splash } from "@/ui/Splash";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -105,9 +105,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <Splash>
-            <QueryProvider>
+            <ReactQueryProvider>
               <Component {...pageProps} />
-            </QueryProvider>
+            </ReactQueryProvider>
           </Splash>
         </ThemeProvider>
       </div>

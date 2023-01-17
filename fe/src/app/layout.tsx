@@ -1,4 +1,4 @@
-import { QueryProvider } from "@/ui/client-providers";
+import { QueryProvider } from "@/ui/ReactQueryProvider";
 import { Splash } from "@/ui/Splash";
 import "./globals.css";
 
