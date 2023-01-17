@@ -199,7 +199,7 @@ const UserCard: React.FC<UserCardProps> = (props) => {
 export default UserCard;
 
 const StyledCard = styled.div`
-  max-width: 340px;
+  width: 340px;
   height: 520px;
   margin: auto;
   overflow-y: auto;
