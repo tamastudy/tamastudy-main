@@ -1,0 +1,30 @@
+{
+  "background_color": "#6500fc",
+  "description": "함께하는 즐거움",
+  "dir": "ltr",
+  "display": "minimal-ui",
+  "name": "tamastudy",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "tamastudy",
+  "start_url": "/",
+  "theme_color": "#6500fc",
+  "categories": ["education", "entertainment", "social"],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/seo/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/seo/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [],
+  "lang": "ko"
+}

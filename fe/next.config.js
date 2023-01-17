@@ -1,8 +1,24 @@
-/** @type {import('next').NextConfig} */
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+  buildExcludes: [/middleware-manifest.json$/],
+  disable: process.env.NODE_ENV === "development",
+});
+const { createSecureHeaders } = require("next-secure-headers");
+
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   compiler: {
     // Enables the styled-components SWC transform
     styledComponents: true,
+  },
+  headers: async () => {
+    return [{ source: "/(.*)", headers: createSecureHeaders() }];
   },
   // proxy !!!!!!!!
   async rewrites() {
@@ -16,6 +32,7 @@ const nextConfig = {
   experimental: {
     appDir: false,
   },
+  reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
