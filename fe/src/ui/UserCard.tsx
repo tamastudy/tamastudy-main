@@ -199,8 +199,14 @@ const UserCard: React.FC<UserCardProps> = (props) => {
 export default UserCard;
 
 const StyledCard = styled.div`
-  width: 340px;
+  width: 260px;
   height: 520px;
+
+  ${({ theme }) => theme.media.laptop`
+    width: 340px;
+    height: 520px;
+  `};
+
   margin: auto;
   overflow-y: auto;
   position: relative;
