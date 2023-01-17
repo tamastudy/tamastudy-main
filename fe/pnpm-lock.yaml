@@ -18,6 +18,7 @@ specifiers:
   next: 13.1.2
   next-pwa: ^5.6.0
   next-secure-headers: ^2.2.0
+  nextjs-google-analytics: ^2.2.2
   react: 18.2.0
   react-dom: 18.2.0
   react-error-boundary: ^3.1.4
@@ -49,6 +50,7 @@ dependencies:
   next: 13.1.2_pjwopsidmaokadturxaafygjp4
   next-pwa: 5.6.0_zrcvzzy2rg6gslvsipwb677ttm
   next-secure-headers: 2.2.0
+  nextjs-google-analytics: 2.2.2_next@13.1.2+react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
@@ -4289,6 +4291,18 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /nextjs-google-analytics/2.2.2_next@13.1.2+react@18.2.0:
+    resolution: {integrity: sha512-PfA5QZCV+tsCEHG6AE3UXHY8fpHguN+l8t81GztdVW1EtX6UCfu8/rb/X/E+D3oFMY0P3YFQzouSgdm1OhWFiA==}
+    peerDependencies:
+      next: '>=11.0.0'
+      react: '>=17.0.0'
+    dependencies:
+      next: 13.1.2_pjwopsidmaokadturxaafygjp4
+      react: 18.2.0
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /node-releases/2.0.8:

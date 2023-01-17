@@ -12,6 +12,7 @@ import {
   SimpleInterpolation,
   ThemeProvider,
 } from "styled-components";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Roboto } from "@next/font/google";
 
 const roboto = Roboto({
@@ -100,6 +101,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="theme-color" content={`${theme.colors.primary}`}></meta>
       </Head>
+      <GoogleAnalytics trackPageViews />
       <div className={roboto.className}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
