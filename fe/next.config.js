@@ -32,7 +32,7 @@ const nextConfig = {
   experimental: {
     appDir: false,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 module.exports = withPWA(nextConfig);

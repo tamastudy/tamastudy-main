@@ -1,4 +1,4 @@
-import { QueryProvider } from "@/ui/ReactQueryProvider";
+import { ReactQueryProvider } from "@/ui/ReactQueryProvider";
 import { Splash } from "@/ui/Splash";
 import "./globals.css";
 
@@ -15,7 +15,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
