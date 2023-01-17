@@ -59,7 +59,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="index, follow" />
-        <meta name="theme-color" content={`${theme.colors.primary}`} />
         <meta
           name="msapplication-TileColor"
           content={`${theme.colors.primary}`}
@@ -72,34 +71,34 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           name="bingbot"
           content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
-        <meta name="theme-color" content={theme.colors.primary} />
-        <meta
-          name="msapplication-config"
-          content="/seo/favicon/site.webmanifest"
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/apple-touch-icon.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/seo/favicon/favicon-32x32.png"
+          href="/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/seo/favicon/favicon-16x16.png"
+          href="/favicon-16x16.png"
         />
-        <link
-          rel="manifest"
-          href="/manifest.json"
-          crossOrigin="use-credentials"
-        />
+        <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="mask-icon"
-          href="/img/favicon/safari-pinned-tab.svg"
+          href="/safari-pinned-tab.svg"
           color={`${theme.colors.primary}`}
         />
-        <link rel="shortcut icon" href="/img/favicon/favicon.ico" />
+        <meta
+          name="msapplication-TileColor"
+          content={`${theme.colors.primary}`}
+        />
+        <meta name="theme-color" content={`${theme.colors.primary}`}></meta>
       </Head>
       <div className={roboto.className}>
         <ThemeProvider theme={theme}>

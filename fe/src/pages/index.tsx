@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
 // Fetching data from the JSON file
 import { User } from "@/types/interfaces";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryErrorResetBoundary } from "@tanstack/react-query";
 import fsPromises from "fs/promises";
 import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import path from "path";
@@ -79,6 +79,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
     },
     {
       initialData: users,
+      suspense: true,
     }
   );
 
@@ -330,32 +331,36 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
               <h2>
                 <strong>M</strong>embers
               </h2>
-              <ErrorBoundary
-                FallbackComponent={ErrorFallback}
-                onReset={() => {
-                  // reset the state of your app so the error doesn't happen again
-                }}
-              >
-                <Suspense fallback={<p>Loading member...</p>}>
-                  <StyledSwiperWrapper>
-                    <Swiper
-                      modules={[A11y]}
-                      spaceBetween={16}
-                      slidesPerView="auto"
-                      grabCursor
+              <QueryErrorResetBoundary>
+                {({ reset }) => {
+                  return (
+                    <ErrorBoundary
+                      FallbackComponent={ErrorFallback}
+                      onReset={reset}
                     >
-                      {userData.map((user, userIndex) => (
-                        <SwiperSlide key={user.id}>
-                          <UserCard
-                            {...user}
-                            bgNum={userData.length % (userIndex + 1)}
-                          />
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  </StyledSwiperWrapper>
-                </Suspense>
-              </ErrorBoundary>
+                      <Suspense fallback={<p>Loading member...</p>}>
+                        <StyledSwiperWrapper>
+                          <Swiper
+                            modules={[A11y]}
+                            spaceBetween={16}
+                            slidesPerView="auto"
+                            grabCursor
+                          >
+                            {userData.map((user, userIndex) => (
+                              <SwiperSlide key={user.id}>
+                                <UserCard
+                                  {...user}
+                                  bgNum={userData.length % (userIndex + 1)}
+                                />
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+                        </StyledSwiperWrapper>
+                      </Suspense>
+                    </ErrorBoundary>
+                  );
+                }}
+              </QueryErrorResetBoundary>
             </StyledSection3>
           </Element>
 

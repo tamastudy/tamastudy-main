@@ -2,7 +2,7 @@
   "background_color": "#6500fc",
   "description": "함께하는 즐거움",
   "dir": "ltr",
-  "display": "minimal-ui",
+  "display": "standalone",
   "name": "tamastudy",
   "orientation": "any",
   "scope": "/",
@@ -13,16 +13,9 @@
   "screenshots": [],
   "icons": [
     {
-      "src": "/seo/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/seo/favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/android-chrome-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
     }
   ],
   "shortcuts": [],
