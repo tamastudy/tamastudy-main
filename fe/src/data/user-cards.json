@@ -93,5 +93,22 @@
     "jobTitle": "WEB Engineer",
     "jobPlace": "Team Lab",
     "address": "Tokyo, Japan"
+  },
+  {
+    "id": 7,
+    "username": "Narita Airi",
+    "about": "24歳🍎エンジニアへのキャリアチェンジ。 成長記録　💻学習記録、アウトプット！💻. 毎日更新。 間違いやアドバイスあればコメントいただけると嬉しいです！！！",
+    "email": "airiswim.kitty@gmail.com",
+    "profileImg": "/members/profile-images/airi-narita.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "Student",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "twitter": "aaaairinkiyowo"
+    },
+    "customLink": {
+      "link": "https://zenn.dev/airiswim",
+      "text": "Zenn"
+    }
   }
 ]
