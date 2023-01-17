@@ -85,6 +85,9 @@ const GlobalStyles = createGlobalStyle`
 html,
 body {
   max-width: 100vw;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {

@@ -1,16 +1,17 @@
-import { useRef, useState } from "react";
-import styled, { css, keyframes, useTheme } from "styled-components";
-import Image from "next/image";
-import StickyBox from "react-sticky-box";
-import { Autoplay, A11y } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useScrollBlock } from "@/lib/hooks";
-import { Element, Link as ScrollLink } from "react-scroll";
-import ProgressBar from "react-progressbar-on-scroll";
-import { CSSTransition } from "react-transition-group";
-import parse from "html-react-parser";
-import { useForm } from "react-hook-form";
+import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
+import parse from "html-react-parser";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import ProgressBar from "react-progressbar-on-scroll";
+import { Element, Link as ScrollLink } from "react-scroll";
+import StickyBox from "react-sticky-box";
+import { CSSTransition } from "react-transition-group";
+import styled, { css, keyframes, useTheme } from "styled-components";
+import { A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
@@ -272,161 +273,87 @@ export default function IndexPage() {
                 <Swiper
                   breakpoints={{
                     688: {
-                      slidesPerView: 3,
+                      slidesPerView: 2 + 2 * 0.2,
                     },
                     992: {
-                      slidesPerView: 3,
+                      slidesPerView: 3 + 3 * 0.2,
                     },
                     1312: {
-                      slidesPerView: 4,
+                      slidesPerView: 4 + 4 * 0.2,
                     },
                   }}
-                  modules={[Autoplay, A11y]}
-                  spaceBetween={50}
-                  slidesPerView={1.4}
+                  modules={[A11y]}
+                  spaceBetween={16}
+                  slidesPerView={1 + 1 * 0.2}
                   onSlideChange={() => console.log("slide change")}
-                  autoplay={{ delay: 1000 }}
                   onSwiper={(swiper) => console.log(swiper)}
                 >
                   <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Jongseok Lee
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Frontend Developer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          LINE
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Jeonghan Gam
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Software Engineer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          Amazon JP
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Dongmin Park
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Frontend Engineer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          TORIHADA
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Hyeongil Park
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Backend Engineer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          teamLab
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
+                    <UserCard
+                      username={"Jongseok Lee"}
+                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
+                      email={"jonsoku.dev@gmail.com"}
+                      profileImg={"/members/profile-images/jongseok-lee.png"}
+                      jobTitle={"Frontend Engineer"}
+                      jobPlace={"LINE"}
+                      phone={"(82) 080-7708-3832"}
+                      address={"Tokyo, Japan"}
+                      customLink={{
+                        link: "https://naver.com",
+                        text: "My Homepage",
+                      }}
+                      sns={{
+                        linkedIn: "jongseok-lee-785216191",
+                        facebook: "",
+                        instagram: "",
+                        twitter: "",
+                      }}
+                    />
                   </SwiperSlide>
 
                   <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Jeonghan Gam
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Software Engineer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          Amazon JP
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
+                    <UserCard
+                      username={"Jongseok Lee"}
+                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
+                      email={"jonsoku.dev@gmail.com"}
+                      profileImg={"/members/profile-images/jongseok-lee.png"}
+                      jobTitle={"Frontend Engineer"}
+                      jobPlace={"LINE"}
+                      phone={"(82) 080-7708-3832"}
+                      address={"Tokyo, Japan"}
+                      customLink={{
+                        link: "https://naver.com",
+                        text: "My Homepage",
+                      }}
+                      sns={{
+                        linkedIn: "jongseok-lee-785216191",
+                        facebook: "",
+                        instagram: "",
+                        twitter: "",
+                      }}
+                    />
                   </SwiperSlide>
-
                   <SwiperSlide>
-                    <StyledMemberWrapper>
-                      <StyledMemberAvatar>
-                        <Image
-                          src="default-avatar.svg"
-                          alt="avatar"
-                          width={80}
-                          height={80}
-                        />
-                      </StyledMemberAvatar>
-                      <StyledMemberInfoWrapper>
-                        <StyledMemberInfoName>
-                          Jeonghan Gam
-                        </StyledMemberInfoName>
-                        <StyledMemberInfoJob>
-                          Software Engineer
-                        </StyledMemberInfoJob>
-                        <StyledMemberInfoJobPlace>
-                          Amazon JP
-                        </StyledMemberInfoJobPlace>
-                      </StyledMemberInfoWrapper>
-                    </StyledMemberWrapper>
+                    <UserCard
+                      username={"Jongseok Lee"}
+                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
+                      email={"jonsoku.dev@gmail.com"}
+                      profileImg={"/members/profile-images/jongseok-lee.png"}
+                      jobTitle={"Frontend Engineer"}
+                      jobPlace={"LINE"}
+                      phone={"(82) 080-7708-3832"}
+                      address={"Tokyo, Japan"}
+                      customLink={{
+                        link: "https://naver.com",
+                        text: "My Homepage",
+                      }}
+                      sns={{
+                        linkedIn: "jongseok-lee-785216191",
+                        facebook: "",
+                        instagram: "",
+                        twitter: "",
+                      }}
+                    />
                   </SwiperSlide>
                 </Swiper>
               </StyledSwiperWrapper>
@@ -648,7 +575,7 @@ const StyledSlogan = styled.h1`
  */
 
 const StyledSection2 = styled.section`
-  margin-bottom: 248px;
+  margin-bottom: 320px;
 
   h2 {
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
@@ -672,7 +599,7 @@ const StyledSection2 = styled.section`
  */
 
 const StyledSection3 = styled.section`
-  margin-bottom: 248px;
+  margin-bottom: 320px;
   h2 {
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
     font-size: 2rem;
@@ -886,7 +813,7 @@ const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
  * Section 4 - FAQ
  */
 const StyledSection4 = styled.section`
-  margin-bottom: 248px;
+  margin-bottom: 320px;
   h2 {
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
     font-size: 2rem;
@@ -908,7 +835,7 @@ const StyledSection4 = styled.section`
  * Section 5 - Contact
  */
 const StyledSection5 = styled.section`
-  margin-bottom: 248px;
+  margin-bottom: 320px;
 
   h2 {
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
@@ -934,6 +861,7 @@ const StyledSection5 = styled.section`
 const StyledAccordionArea = styled.ul`
   list-style: none;
   width: 100%;
+  max-width: 900px;
   margin: 0 auto;
 
   li {
@@ -1012,7 +940,6 @@ const StyledAccordionBox = styled.div`
     transition: all 0.3s ease;
   }
   p {
-
     padding: 24px;
     font-size: 0.8rem;
     color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
