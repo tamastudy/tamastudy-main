@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "username": "Jongseok Lee",
+    "about": "개발을 너무 사랑하는 평범한 개발자입니다.",
+    "email": "jonsoku.dev@gmail.com",
+    "profileImg": "/members/profile-images/jongseok-lee.png",
+    "jobTitle": "Frontend Engineer",
+    "jobPlace": "LINE",
+    "phone": "(82) 080-7708-3832",
+    "address": "Tokyo, Japan",
+    "customLink": {
+      "link": "https://naver.com",
+      "text": "My Homepage"
+    },
+    "sns": {
+      "linkedIn": "jongseok-lee-785216191",
+      "facebook": "",
+      "instagram": "",
+      "twitter": ""
+    }
+  },
+  {
+    "id": 2,
+    "username": "Jongseok Park",
+    "about": "백앤드 개발을 하다 타마스터디에서 프론트 앤드의 매력을 느껴 최근에는 프론트로 이동하였습니다. 🧑🏻‍💻\n배운것을 정리하여 공유하는것을 좋아합니다📝\n최근에는 React, AWS에 관심을 가지고 공부중입니다🔥\n함께 하실분은 언제든 연락주셔요📞",
+    "email": "pjongsuk1@gmail.com",
+    "profileImg": "/members/profile-images/jongseok-park.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "株式会社メンバーズ",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "linkedIn": "jongseok-park-266a911b9",
+      "facebook": "",
+      "instagram": "",
+      "twitter": ""
+    }
+  },
+  {
+    "id": 3,
+    "username": "Jeonghan Gam",
+    "about": "요시! 요로시쿠네~",
+    "email": "jgam@alumni.nd.edu",
+    "profileImg": "/members/profile-images/jeonghan-gam.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "株式会社メンバーズ",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "linkedIn": "jeonghan-jimmy-gam-67726b127",
+      "facebook": "jgam1333",
+      "instagram": "jgam__",
+      "kakao": "gam8999",
+      "line": "gam8999"
+    }
+  },
+  {
+    "id": 4,
+    "username": "Sungtae Kim",
+    "about": "타인의 삶과 비교하지 마라\n해와 달은 서로를 비교하는 법이 없다\n그들은 단지 그들의 시간대에서 빛나고 있을 뿐\n네가 가는 길도 맞고 내가 가는 길도 맞다",
+    "email": "ttvt@naver.com",
+    "profileImg": "/members/profile-images/sungtae-kim.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "smarting",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "instagram": "st__soso"
+    }
+  },
+  {
+    "id": 5,
+    "username": "Dongmin Park",
+    "about": "크리에이티브를 좋아하는 개발자",
+    "email": "dongmin.park.career@gmail.com",
+    "profileImg": "/members/profile-images/dongmin-park.png",
+    "jobTitle": "Frontend Engineer",
+    "jobPlace": "smarting",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "instagram": "dmm_0877",
+      "linkedIn": "dongmin-park-47559b1ab",
+      "facebook": "dongmin.park.330",
+      "twitter": "pakudoburi",
+      "kakao": "jm2pm",
+      "line": "g2o2d"
+    }
+  }
+]

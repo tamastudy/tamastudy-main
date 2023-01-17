@@ -3,7 +3,7 @@ import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ProgressBar from "react-progressbar-on-scroll";
 import { Element, Link as ScrollLink } from "react-scroll";
@@ -13,13 +13,41 @@ import styled, { css, keyframes, useTheme } from "styled-components";
 import { A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
+// Fetching data from the JSON file
+import fsPromises from "fs/promises";
+import path from "path";
+import { User } from "@/types/interfaces";
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
-export default function IndexPage() {
+function shuffle<T>(array: T[]): T[] {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+export const getStaticProps: GetStaticProps<{ users: User[] }> = async () => {
+  const filePath = path.join(process.cwd(), "src/data/user-cards.json");
+  const jsonData = await fsPromises.readFile(filePath);
+  const objectData: User[] = JSON.parse(jsonData.toString());
+
+  return {
+    props: {
+      users: shuffle(objectData),
+    },
+  };
+};
+
+interface IndexPageProps {
+  users: User[];
+}
+
+const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
+  console.log({ users });
   const [activeHamburger, setActiveHamburger] = useState(false);
   const [blockScroll, allowScroll] = useScrollBlock();
   const theme = useTheme();
+
+  useEffect(() => {});
 
   const handleHamburger = () => {
     if (activeHamburger) {
@@ -276,119 +304,11 @@ export default function IndexPage() {
                   slidesPerView="auto"
                   grabCursor
                 >
-                  <SwiperSlide>
-                    <UserCard
-                      username={"Jongseok Lee"}
-                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
-                      email={"jonsoku.dev@gmail.com"}
-                      profileImg={"/members/profile-images/jongseok-lee.png"}
-                      jobTitle={"Frontend Engineer"}
-                      jobPlace={"LINE"}
-                      phone={"(82) 080-7708-3832"}
-                      address={"Tokyo, Japan"}
-                      customLink={{
-                        link: "https://naver.com",
-                        text: "My Homepage",
-                      }}
-                      sns={{
-                        linkedIn: "jongseok-lee-785216191",
-                        facebook: "",
-                        instagram: "",
-                        twitter: "",
-                      }}
-                    />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <UserCard
-                      username={"Jongseok Lee"}
-                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
-                      email={"jonsoku.dev@gmail.com"}
-                      profileImg={"/members/profile-images/jongseok-lee.png"}
-                      jobTitle={"Frontend Engineer"}
-                      jobPlace={"LINE"}
-                      phone={"(82) 080-7708-3832"}
-                      address={"Tokyo, Japan"}
-                      customLink={{
-                        link: "https://naver.com",
-                        text: "My Homepage",
-                      }}
-                      sns={{
-                        linkedIn: "jongseok-lee-785216191",
-                        facebook: "",
-                        instagram: "",
-                        twitter: "",
-                      }}
-                    />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <UserCard
-                      username={"Jongseok Lee"}
-                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
-                      email={"jonsoku.dev@gmail.com"}
-                      profileImg={"/members/profile-images/jongseok-lee.png"}
-                      jobTitle={"Frontend Engineer"}
-                      jobPlace={"LINE"}
-                      phone={"(82) 080-7708-3832"}
-                      address={"Tokyo, Japan"}
-                      customLink={{
-                        link: "https://naver.com",
-                        text: "My Homepage",
-                      }}
-                      sns={{
-                        linkedIn: "jongseok-lee-785216191",
-                        facebook: "",
-                        instagram: "",
-                        twitter: "",
-                      }}
-                    />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <UserCard
-                      username={"Jongseok Lee"}
-                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
-                      email={"jonsoku.dev@gmail.com"}
-                      profileImg={"/members/profile-images/jongseok-lee.png"}
-                      jobTitle={"Frontend Engineer"}
-                      jobPlace={"LINE"}
-                      phone={"(82) 080-7708-3832"}
-                      address={"Tokyo, Japan"}
-                      customLink={{
-                        link: "https://naver.com",
-                        text: "My Homepage",
-                      }}
-                      sns={{
-                        linkedIn: "jongseok-lee-785216191",
-                        facebook: "",
-                        instagram: "",
-                        twitter: "",
-                      }}
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <UserCard
-                      username={"Jongseok Lee"}
-                      about={"개발을 너무 사랑하는 평범한 개발자입니다."}
-                      email={"jonsoku.dev@gmail.com"}
-                      profileImg={"/members/profile-images/jongseok-lee.png"}
-                      jobTitle={"Frontend Engineer"}
-                      jobPlace={"LINE"}
-                      phone={"(82) 080-7708-3832"}
-                      address={"Tokyo, Japan"}
-                      customLink={{
-                        link: "https://naver.com",
-                        text: "My Homepage",
-                      }}
-                      sns={{
-                        linkedIn: "jongseok-lee-785216191",
-                        facebook: "",
-                        instagram: "",
-                        twitter: "",
-                      }}
-                    />
-                  </SwiperSlide>
+                  {users.map((user) => (
+                    <SwiperSlide key={user.id}>
+                      <UserCard {...user} />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </StyledSwiperWrapper>
             </StyledSection3>
@@ -456,7 +376,9 @@ export default function IndexPage() {
       </StyledFooter>
     </StyledIndexContainer>
   );
-}
+};
+
+export default IndexPage;
 
 const StyledIndexContainer = styled.div`
   ${({ theme }) => theme.media.laptop`

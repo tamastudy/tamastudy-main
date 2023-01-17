@@ -1,27 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import { User } from "@/types/interfaces";
+import Image from 'next/image';
 import React, { useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 
-interface UserCardProps {
-  username: string;
-  about: string;
-  email: string;
-  profileImg: string;
-  jobTitle: string;
-  jobPlace: string;
-  phone?: string;
-  address?: string;
-  customLink?: {
-    text: string;
-    link: string;
-  };
-  sns?: {
-    linkedIn?: string;
-    facebook?: string;
-    instagram?: string;
-    twitter?: string;
-  };
-}
+interface UserCardProps extends User {}
 
 const UserCard: React.FC<UserCardProps> = (props) => {
   const [activeTab, setActiveTab] = useState<"about" | "contact">("about");
@@ -35,8 +18,8 @@ const UserCard: React.FC<UserCardProps> = (props) => {
           style={{
             backgroundImage: `url('/members/backgrounds/bg${bgNum}.jpg')`,
           }}
-        ></div>
-        <img className="card-avatar" src={props.profileImg} alt="avatar" />
+        />
+        <Image width={100} height={100} className="card-avatar" src={props.profileImg} alt="avatar" />
         <h4 className="card-fullname">{props.username}</h4>
         <h5 className="card-jobtitle">{props.jobTitle}</h5>
         <span className="card-jobplace">{props.jobPlace}</span>
