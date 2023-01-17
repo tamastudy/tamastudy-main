@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps<{ users: User[] }> = async () => {
 
   return {
     props: {
-      users: shuffle(objectData),
+      users: objectData,
     },
   };
 };
@@ -314,7 +314,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                   slidesPerView="auto"
                   grabCursor
                 >
-                  {users.map((user) => (
+                  {shuffle(users).map((user) => (
                     <SwiperSlide key={user.id}>
                       <UserCard {...user} />
                     </SwiperSlide>
