@@ -83,5 +83,15 @@
       "kakao": "jm2pm",
       "line": "g2o2d"
     }
+  },
+  {
+    "id": 6,
+    "username": "Hyeongil Park",
+    "about": "ㄱㅈㅇ!!",
+    "email": "youuy28@gmail.com",
+    "profileImg": "/members/profile-images/hyeongil-park.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "Team Lab",
+    "address": "Tokyo, Japan"
   }
 ]
