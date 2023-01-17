@@ -346,11 +346,11 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                             slidesPerView="auto"
                             grabCursor
                           >
-                            {userData.map((user, userIndex) => (
+                            {userData.map((user) => (
                               <SwiperSlide key={user.id}>
                                 <UserCard
                                   {...user}
-                                  bgNum={userData.length % (userIndex + 1)}
+                                  bgNum={userData.length % 3}
                                 />
                               </SwiperSlide>
                             ))}
