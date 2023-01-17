@@ -11,19 +11,12 @@
     "address": "Tokyo, Japan",
     "customLinks": [
       {
-        "link": "https://naver.com",
-        "text": "My Homepage"
-      },
-      {
-        "link": "https://nate.com",
-        "text": "My Homepage"
+        "link": "https://mentree.club/mentor/interviews/2100",
+        "text": "Mentree Interview"
       }
     ],
     "sns": {
-      "linkedIn": "jongseok-lee-785216191",
-      "facebook": "",
-      "instagram": "",
-      "twitter": ""
+      "linkedIn": "jongseok-lee-785216191"
     }
   },
   {
@@ -36,10 +29,7 @@
     "jobPlace": "株式会社メンバーズ",
     "address": "Tokyo, Japan",
     "sns": {
-      "linkedIn": "jongseok-park-266a911b9",
-      "facebook": "",
-      "instagram": "",
-      "twitter": ""
+      "linkedIn": "jongseok-park-266a911b9"
     }
   },
   {
@@ -59,7 +49,17 @@
       "instagram": "jgam__",
       "kakao": "gam8999",
       "line": "gam8999"
-    }
+    },
+    "customLinks": [
+      {
+        "link": "https://mentree.club/mentor/interviews/2085",
+        "text": "Mentree Interview"
+      },
+      {
+        "link": "https://nomadcoders.co/community/thread/1308",
+        "text": "Nomadcoders Interview"
+      }
+    ]
   },
   {
     "id": 4,
