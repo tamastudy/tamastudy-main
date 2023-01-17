@@ -13,6 +13,8 @@ COPY package*.json ./
 # Install dependencies
 RUN pnpm install --production
 
+RUN echo ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
+
 # If you are building your code for production
 # RUN npm ci --only=production
 

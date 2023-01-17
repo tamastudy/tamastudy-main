@@ -14,6 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: copy file via ssh password
+        env:
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
