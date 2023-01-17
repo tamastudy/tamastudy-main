@@ -2,7 +2,7 @@ import "swiper/css";
 
 import { ReactQueryProvider } from "@/ui/ReactQueryProvider";
 import { Splash } from "@/ui/Splash";
-import type { AppProps } from "next/app";
+import type { AppProps, NextWebVitalsMetric } from "next/app";
 import Head from "next/head";
 import {
   createGlobalStyle,
@@ -12,8 +12,25 @@ import {
   SimpleInterpolation,
   ThemeProvider,
 } from "styled-components";
-import { GoogleAnalytics } from "nextjs-google-analytics";
+import { GoogleAnalytics, event } from "nextjs-google-analytics";
+
 import { Roboto } from "@next/font/google";
+
+// pages/_app.js
+
+export function reportWebVitals({
+  id,
+  name,
+  label,
+  value,
+}: NextWebVitalsMetric) {
+  event(name, {
+    category: label === "web-vital" ? "Web Vitals" : "Next.js custom metric",
+    value: Math.round(name === "CLS" ? value * 1000 : value), // values must be integers
+    label: id, // id unique to current page load
+    nonInteraction: true, // avoids affecting bounce rate.
+  });
+}
 
 const roboto = Roboto({
   weight: ["400", "700"],
