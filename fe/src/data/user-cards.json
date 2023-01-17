@@ -9,10 +9,16 @@
     "jobPlace": "LINE",
     "phone": "(82) 080-7708-3832",
     "address": "Tokyo, Japan",
-    "customLink": {
-      "link": "https://naver.com",
-      "text": "My Homepage"
-    },
+    "customLinks": [
+      {
+        "link": "https://naver.com",
+        "text": "My Homepage"
+      },
+      {
+        "link": "https://nate.com",
+        "text": "My Homepage"
+      }
+    ],
     "sns": {
       "linkedIn": "jongseok-lee-785216191",
       "facebook": "",
@@ -75,13 +81,14 @@
     "jobTitle": "Frontend Engineer",
     "jobPlace": "TORIHADA",
     "address": "Tokyo, Japan",
+    "kakaoId": "jm2pm",
+    "lineId": "g2o2d",
     "sns": {
       "instagram": "dmm_0877",
       "linkedIn": "dongmin-park-47559b1ab",
       "facebook": "dongmin.park.330",
       "twitter": "pakudoburi",
-      "kakao": "jm2pm",
-      "line": "g2o2d"
+      "github": "dongmin7208"
     }
   },
   {
@@ -104,11 +111,9 @@
     "jobPlace": "Student",
     "address": "Tokyo, Japan",
     "sns": {
-      "twitter": "aaaairinkiyowo"
-    },
-    "customLink": {
-      "link": "https://zenn.dev/airiswim",
-      "text": "Zenn"
+      "twitter": "aaaairinkiyowo",
+      "zenn": "airiswim",
+      "github": "airinarita"
     }
   }
 ]

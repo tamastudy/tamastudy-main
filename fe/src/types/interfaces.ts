@@ -8,15 +8,19 @@ export interface User {
   jobPlace: string;
   phone?: string;
   address?: string;
-  customLink?: {
+  customLinks?: {
     text: string;
     link: string;
-  };
+  }[];
+  kakaoId: string;
+  lineId: string;
   sns?: {
     linkedIn?: string;
     facebook?: string;
     instagram?: string;
     twitter?: string;
+    zenn?: string;
+    github?: string;
   };
   bgImage?: string;
 }
