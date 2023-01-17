@@ -117,5 +117,28 @@
       "zenn": "airiswim",
       "github": "airinarita"
     }
+  },
+  {
+    "id": 8,
+    "username": "Sugawara Sayaka",
+    "about": "ECサイト運営からエンジニア転職を目指して勉強中です🌱",
+    "email": "uknow.love1229@gmail.com",
+    "profileImg": "/members/profile-images/sugawara-sayaka.png",
+    "jobTitle": "WEB Engineer",
+    "jobPlace": "Student",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "zenn": "goldsaya"
+    }
+  },
+  {
+    "id": 9,
+    "username": "Jess Hong",
+    "about": "IT 업종에서 종사한지 5년차 Jess입니다.Product Manager 이다보니여기저기 코딩공부하고 있어요. ",
+    "email": "snowdl@naver.com",
+    "profileImg": "/members/profile-images/jess-hong.png",
+    "jobTitle": "Product Manager",
+    "jobPlace": "Rakuten",
+    "address": "Tokyo, Japan"
   }
 ]
