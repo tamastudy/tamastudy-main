@@ -124,6 +124,7 @@ export const History: React.FC<HistoryProps> = () => {
       {histories.map((history, index) => {
         return (
           <li
+            key={index}
             ref={(element) => {
               if (element) {
                 refs.current[index] = element;
