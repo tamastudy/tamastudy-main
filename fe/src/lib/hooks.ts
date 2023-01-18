@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useTimeout = (callback: () => void, delay: number | null) => {
   const savedCallback = useRef(callback);
@@ -98,4 +98,10 @@ export const useScrollPosition = () => {
   }, []);
 
   return scrollPosition;
+};
+
+export const useForceUpdate = () => {
+  const [, updateState] = useState({});
+  const forceUpdate = useCallback(() => updateState({}), []);
+  return forceUpdate;
 };

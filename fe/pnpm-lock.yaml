@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@hookform/resolvers': ^2.9.10
   '@next/font': 13.1.2
+  '@react-hook/media-query': ^1.1.1
   '@svgr/webpack': ^6.5.1
   '@tanstack/react-query': ^4.22.0
   '@types/node': 18.11.18
@@ -22,6 +23,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-error-boundary: ^3.1.4
+  react-grid-gallery: ^1.0.0
   react-hook-form: ^7.42.1
   react-progressbar-on-scroll: ^2.0.0
   react-scroll: ^1.8.9
@@ -35,6 +37,7 @@ specifiers:
 dependencies:
   '@hookform/resolvers': 2.9.10_react-hook-form@7.42.1
   '@next/font': 13.1.2
+  '@react-hook/media-query': 1.1.1_react@18.2.0
   '@svgr/webpack': 6.5.1
   '@tanstack/react-query': 4.22.0_biqbaboplfbrettd7655fr4n2y
   '@types/node': 18.11.18
@@ -54,6 +57,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-error-boundary: 3.1.4_react@18.2.0
+  react-grid-gallery: 1.0.0_react@18.2.0
   react-hook-form: 7.42.1_react@18.2.0
   react-progressbar-on-scroll: 2.0.0_react@18.2.0
   react-scroll: 1.8.9_biqbaboplfbrettd7655fr4n2y
@@ -1633,6 +1637,14 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.4.1
+    dev: false
+
+  /@react-hook/media-query/1.1.1_react@18.2.0:
+    resolution: {integrity: sha512-VM14wDOX5CW5Dn6b2lTiMd79BFMTut9AZj2+vIRT3LCKgMCYmdqruTtzDPSnIVDQdtxdPgtOzvU9oK20LopuOw==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@rollup/plugin-babel/5.3.1_3dsfpkpoyvuuxyfgdbpn4j4uzm:
@@ -4600,6 +4612,14 @@ packages:
       react: '>=16.13.1'
     dependencies:
       '@babel/runtime': 7.20.7
+      react: 18.2.0
+    dev: false
+
+  /react-grid-gallery/1.0.0_react@18.2.0:
+    resolution: {integrity: sha512-S1gr6WXBlPFVrE0x2BHuu7jhyaB61mabcMQyx+8KCgAyKzGza0WF67AfAnS9Q00aurFEq4IP8eqb2Bk5F4RAmQ==}
+    peerDependencies:
+      react: '>=16.14.0'
+    dependencies:
       react: 18.2.0
     dev: false
 

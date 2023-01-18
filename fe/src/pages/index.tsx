@@ -4,7 +4,7 @@ import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import ProgressBar from "react-progressbar-on-scroll";
 import { Element, Link as ScrollLink } from "react-scroll";
@@ -22,6 +22,7 @@ import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import path from "path";
 import { ErrorBoundary } from "react-error-boundary";
 import { zIndex } from "@/lib/consts";
+import GridGallery from "@/ui/GridGallery";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -74,7 +75,6 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
   const [blockScroll, allowScroll] = useScrollBlock();
   const scrollPosition = useScrollPosition();
   const theme = useTheme();
-
   const { data: userData } = useQuery<User[]>(
     ["users"],
     () => {
@@ -373,6 +373,15 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                   }}
                 </QueryErrorResetBoundary>
               </StyledSection3>
+            </Element>
+
+            <Element name="about">
+              <StyledSection2>
+                <h2>
+                  <strong>M</strong>edia
+                </h2>
+                <GridGallery />
+              </StyledSection2>
             </Element>
 
             <Element name="faq">
