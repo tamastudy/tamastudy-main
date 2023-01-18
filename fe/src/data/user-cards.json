@@ -109,8 +109,8 @@
     "about": "24歳🍎エンジニアへのキャリアチェンジ。 成長記録　💻学習記録、アウトプット！💻. 毎日更新。 間違いやアドバイスあればコメントいただけると嬉しいです！！！",
     "email": "airiswim.kitty@gmail.com",
     "profileImg": "/members/profile-images/airi-narita.png",
-    "jobTitle": "WEB Engineer",
-    "jobPlace": "Student",
+    "jobTitle": "Student",
+    "jobPlace": "DMM Web camp",
     "address": "Tokyo, Japan",
     "sns": {
       "twitter": "aaaairinkiyowo",
@@ -124,8 +124,8 @@
     "about": "ECサイト運営からエンジニア転職を目指して勉強中です🌱",
     "email": "uknow.love1229@gmail.com",
     "profileImg": "/members/profile-images/sugawara-sayaka.png",
-    "jobTitle": "WEB Engineer",
-    "jobPlace": "Student",
+    "jobTitle": "Student",
+    "jobPlace": "DMM Web camp",
     "address": "Tokyo, Japan",
     "sns": {
       "zenn": "goldsaya"
@@ -140,5 +140,18 @@
     "jobTitle": "Product Manager",
     "jobPlace": "Rakuten",
     "address": "Tokyo, Japan"
+  },
+  {
+    "id": 10,
+    "username": "Jeonghun Park",
+    "about": "얼른 회사원!",
+    "email": "seoul2015.11.14@gmail.com",
+    "profileImg": "/members/profile-images/jess-hong.png",
+    "jobTitle": "Student",
+    "jobPlace": "Shibaura Institute of Technology",
+    "address": "Tokyo, Japan",
+    "sns": {
+      "instagram": "seoul201596"
+    }
   }
 ]
