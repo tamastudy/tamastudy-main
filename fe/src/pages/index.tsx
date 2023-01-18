@@ -1,4 +1,5 @@
 import { useScrollBlock, useScrollPosition } from "@/lib/hooks";
+import { History } from "@/ui/History";
 import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
@@ -322,14 +323,17 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                 <h2>
                   <strong>A</strong>BOUT
                 </h2>
-                <p>
-                  타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 공부를
-                  목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는
-                  사람들 또한 문제 였습니다. 그래서 저희는 사람들에게 선한
-                  영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들기로
-                  결심하였습니다. 그 결과 현재까지도 서로 도와주고 함께 성장하는
-                  타마스터디를 운영하고 있습니다.
-                </p>
+                <StyledAbout>
+                  <History />
+                  <p>
+                    타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다.
+                    공부를 목적으로 모이는 사람들에게 항상 자신의 이익을 위해
+                    접근하는 사람들 또한 문제 였습니다. 그래서 저희는 사람들에게
+                    선한 영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를
+                    만들기로 결심하였습니다. 그 결과 현재까지도 서로 도와주고
+                    함께 성장하는 타마스터디를 운영하고 있습니다.
+                  </p>
+                </StyledAbout>
               </StyledSection2>
             </Element>
 
@@ -629,8 +633,31 @@ const StyledSection2 = styled.section`
   }
 
   p {
-    line-height: 1.6;
+    line-height: 2;
+    word-break: break-all;
   }
+`;
+
+const StyledAbout = styled.div`
+  display: flex;
+  flex-direction: column;
+  > ul {
+    order: 2;
+  }
+  > p {
+    order: 1;
+  }
+  ${({ theme }) => theme.media.laptop`
+    flex-direction: row;
+    justify-content: space-around;
+    > ul {
+      order: 1;
+    }
+    > p {
+      order: 2;
+      width: 320px;
+    }
+  `};
 `;
 
 /**
@@ -821,8 +848,8 @@ const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   transform: scale(0);
-  right: 0;
-  top: 0;
+  right: -12px;
+  top: -12px;
   transition: all 0.6s;
 
   ${({ isCircleActive }) =>

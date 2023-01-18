@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { User } from "@/types/interfaces";
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 interface UserCardProps extends User {
@@ -10,7 +10,6 @@ interface UserCardProps extends User {
 
 const UserCard: React.FC<UserCardProps> = (props) => {
   const [activeTab, setActiveTab] = useState<"about" | "contact">("about");
-  console.log(props.bgNum);
   return (
     <StyledCard className="card">
       <div className="card-header">
