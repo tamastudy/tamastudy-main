@@ -1,4 +1,4 @@
-import { useScrollBlock } from "@/lib/hooks";
+import { useScrollBlock, useScrollPosition } from "@/lib/hooks";
 import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
@@ -20,6 +20,7 @@ import fsPromises from "fs/promises";
 import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import path from "path";
 import { ErrorBoundary } from "react-error-boundary";
+import { zIndex } from "@/lib/consts";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -70,6 +71,7 @@ interface IndexPageProps {
 const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
   const [activeHamburger, setActiveHamburger] = useState(false);
   const [blockScroll, allowScroll] = useScrollBlock();
+  const scrollPosition = useScrollPosition();
   const theme = useTheme();
 
   const { data: userData } = useQuery<User[]>(
@@ -94,86 +96,91 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
 
   return (
     <StyledIndexContainer>
-      <ProgressBar color={theme.colors?.primary ?? "#6500fc"} />
-      <StickyBox>
-        <StyledHeader>
-          <Image src="/t-p.svg" alt="" width={32} height={32} />
-          <div>
-            <ul>
-              <li>
-                <ScrollLink
-                  activeClass={"active"}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  to="top"
-                  offset={SCROLL_LINK_OFFSET}
-                  role="link"
-                  aria-label={`internal scroll link`}
-                >
-                  <span>TOP</span>
-                </ScrollLink>
-              </li>
-              <li>
-                <ScrollLink
-                  activeClass={"active"}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  to="about"
-                  offset={SCROLL_LINK_OFFSET}
-                  role="link"
-                  aria-label={`internal scroll link`}
-                >
-                  <span>ABOUT</span>
-                </ScrollLink>
-              </li>
-              <li>
-                <ScrollLink
-                  activeClass={"active"}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  to="members"
-                  offset={SCROLL_LINK_OFFSET}
-                  role="link"
-                  aria-label={`internal scroll link`}
-                >
-                  <span>MEMBERS</span>
-                </ScrollLink>
-              </li>
-              <li>
-                <ScrollLink
-                  activeClass={"active"}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  to="faq"
-                  offset={SCROLL_LINK_OFFSET}
-                  role="link"
-                  aria-label={`internal scroll link`}
-                >
-                  <span>FAQ</span>
-                </ScrollLink>
-              </li>
-              <li>
-                <ScrollLink
-                  activeClass={"active"}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  to="contact"
-                  offset={SCROLL_LINK_OFFSET}
-                  role="link"
-                  aria-label={`internal scroll link`}
-                >
-                  <span>CONTACT</span>
-                </ScrollLink>
-              </li>
-            </ul>
-          </div>
-        </StyledHeader>
-      </StickyBox>
+      <StyledInnerContainer>
+        <StyledHeaderWrapper
+          isNavActive={activeHamburger}
+          isScrolled={scrollPosition > 64}
+        >
+          <ProgressBar color={theme.colors?.primary ?? "#6500fc"} />
+          <StyledHeader>
+            <Image src="/t-p.svg" alt="" width={32} height={32} />
+            <div>
+              <ul>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to="top"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>TOP</span>
+                  </ScrollLink>
+                </li>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to="about"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>ABOUT</span>
+                  </ScrollLink>
+                </li>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to="members"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>MEMBERS</span>
+                  </ScrollLink>
+                </li>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to="faq"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>FAQ</span>
+                  </ScrollLink>
+                </li>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    to="contact"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>CONTACT</span>
+                  </ScrollLink>
+                </li>
+              </ul>
+            </div>
+          </StyledHeader>
+        </StyledHeaderWrapper>
+      </StyledInnerContainer>
       <StyledOpenBtn
         role="button"
         aria-pressed="false"
@@ -184,7 +191,6 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
         <span></span>
         <span></span>
       </StyledOpenBtn>
-
       <StyledGlobalNav isPanelactive={activeHamburger}>
         <div>
           <ul>
@@ -267,141 +273,143 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
         </div>
       </StyledGlobalNav>
       <StyledCircleBg isCircleActive={activeHamburger} />
-      <StyledContainer>
-        <StyledSubArea>
-          <nav>
-            <ul id="g-navi">
-              <li>
-                <a
-                  href="https://www.instagram.com/tamastudy__tokyo/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src="/insta.svg" alt="instagram" />
-                </a>
-              </li>
-              <li>
-                <a href="" target="_blank" rel="noreferrer">
-                  <img src="/twitter-outlined.svg" alt="twitter" />
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </StyledSubArea>
+      <StyledInnerContainer>
+        <StyledContainer>
+          <StyledSubArea>
+            <nav>
+              <ul id="g-navi">
+                <li>
+                  <a
+                    href="https://www.instagram.com/tamastudy__tokyo/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img src="/insta.svg" alt="instagram" />
+                  </a>
+                </li>
+                <li>
+                  <a href="" target="_blank" rel="noreferrer">
+                    <img src="/twitter-outlined.svg" alt="twitter" />
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </StyledSubArea>
 
-        <StyledMain>
-          <Element name="top">
-            <StyledSection1>
-              <StyledSlogan>
-                <span>함</span>
-                <span>께</span>
-                <br />
-                <strong>
-                  <span>성</span>
-                  <span>장</span>
-                </strong>
-                <span>하</span>
-                <span>는</span>
-                <br />
-                <span>즐</span>
-                <span>거</span>
-                <span>움</span>
-              </StyledSlogan>
-            </StyledSection1>
-          </Element>
+          <StyledMain>
+            <Element name="top">
+              <StyledSection1>
+                <StyledSlogan>
+                  <span>함</span>
+                  <span>께</span>
+                  <br />
+                  <strong>
+                    <span>성</span>
+                    <span>장</span>
+                  </strong>
+                  <span>하</span>
+                  <span>는</span>
+                  <br />
+                  <span>즐</span>
+                  <span>거</span>
+                  <span>움</span>
+                </StyledSlogan>
+              </StyledSection1>
+            </Element>
 
-          <Element name="about">
-            <StyledSection2>
-              <h2>
-                <strong>A</strong>BOUT
-              </h2>
-              <p>
-                타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 공부를
-                목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는
-                사람들 또한 문제 였습니다. 그래서 저희는 사람들에게 선한
-                영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들기로
-                결심하였습니다. 그 결과 현재까지도 서로 도와주고 함께 성장하는
-                타마스터디를 운영하고 있습니다.
-              </p>
-            </StyledSection2>
-          </Element>
+            <Element name="about">
+              <StyledSection2>
+                <h2>
+                  <strong>A</strong>BOUT
+                </h2>
+                <p>
+                  타지에서 혼자 공부하기에는 정보의 부족이 심각했습니다. 공부를
+                  목적으로 모이는 사람들에게 항상 자신의 이익을 위해 접근하는
+                  사람들 또한 문제 였습니다. 그래서 저희는 사람들에게 선한
+                  영향력을 주고 외국에서 서로 힘이 되어주는 커뮤니티를 만들기로
+                  결심하였습니다. 그 결과 현재까지도 서로 도와주고 함께 성장하는
+                  타마스터디를 운영하고 있습니다.
+                </p>
+              </StyledSection2>
+            </Element>
 
-          <Element name="members">
-            <StyledSection3>
-              <h2>
-                <strong>M</strong>embers
-              </h2>
-              <QueryErrorResetBoundary>
-                {({ reset }) => {
-                  return (
-                    <ErrorBoundary
-                      FallbackComponent={ErrorFallback}
-                      onReset={reset}
-                    >
-                      <Suspense fallback={<p>Loading member...</p>}>
-                        <StyledSwiperWrapper>
-                          <Swiper
-                            modules={[A11y]}
-                            spaceBetween={16}
-                            slidesPerView="auto"
-                            grabCursor
-                          >
-                            {userData.map((user) => (
-                              <SwiperSlide key={user.id}>
-                                <UserCard
-                                  {...user}
-                                  bgNum={userData.length % 3}
-                                />
-                              </SwiperSlide>
-                            ))}
-                          </Swiper>
-                        </StyledSwiperWrapper>
-                      </Suspense>
-                    </ErrorBoundary>
-                  );
-                }}
-              </QueryErrorResetBoundary>
-            </StyledSection3>
-          </Element>
+            <Element name="members">
+              <StyledSection3>
+                <h2>
+                  <strong>M</strong>embers
+                </h2>
+                <QueryErrorResetBoundary>
+                  {({ reset }) => {
+                    return (
+                      <ErrorBoundary
+                        FallbackComponent={ErrorFallback}
+                        onReset={reset}
+                      >
+                        <Suspense fallback={<p>Loading member...</p>}>
+                          <StyledSwiperWrapper>
+                            <Swiper
+                              modules={[A11y]}
+                              spaceBetween={16}
+                              slidesPerView="auto"
+                              grabCursor
+                            >
+                              {userData.map((user) => (
+                                <SwiperSlide key={user.id}>
+                                  <UserCard
+                                    {...user}
+                                    bgNum={userData.length % 3}
+                                  />
+                                </SwiperSlide>
+                              ))}
+                            </Swiper>
+                          </StyledSwiperWrapper>
+                        </Suspense>
+                      </ErrorBoundary>
+                    );
+                  }}
+                </QueryErrorResetBoundary>
+              </StyledSection3>
+            </Element>
 
-          <Element name="faq">
-            <StyledSection4>
-              <h2>
-                <strong>F</strong>AQ
-              </h2>
-              <div>
-                <StyledAccordionArea>
-                  <Accordion
-                    title="참가 조건은 어떻게 되나요?"
-                    description="한달 2번 이상 꾸준히 참석하실 분이라면 누구나 참가 가능합니다."
-                  />
-                  <Accordion
-                    title="참석비가 있나요?"
-                    description="장소에 따라 참석비가 있을 수 있습니다. <br />보통 1회 3,000엔 ~ 5,000엔 정도입니다."
-                  />
-                  <Accordion
-                    title="장소는 어디인가요?"
-                    description="장소에 따라 유동적으로 변경됩니다."
-                  />
-                  <Accordion
-                    title="참가 신청은 어떻게 하나요?"
-                    description="아래 Contact 섹션을 이용해주세요."
-                  />
-                </StyledAccordionArea>
-              </div>
-            </StyledSection4>
-          </Element>
+            <Element name="faq">
+              <StyledSection4>
+                <h2>
+                  <strong>F</strong>AQ
+                </h2>
+                <div>
+                  <StyledAccordionArea>
+                    <Accordion
+                      title="참가 조건은 어떻게 되나요?"
+                      description="한달 2번 이상 꾸준히 참석하실 분이라면 누구나 참가 가능합니다."
+                    />
+                    <Accordion
+                      title="참석비가 있나요?"
+                      description="장소에 따라 참석비가 있을 수 있습니다. <br />보통 1회 3,000엔 ~ 5,000엔 정도입니다."
+                    />
+                    <Accordion
+                      title="장소는 어디인가요?"
+                      description="장소에 따라 유동적으로 변경됩니다."
+                    />
+                    <Accordion
+                      title="참가 신청은 어떻게 하나요?"
+                      description="아래 Contact 섹션을 이용해주세요."
+                    />
+                  </StyledAccordionArea>
+                </div>
+              </StyledSection4>
+            </Element>
 
-          <Element name="contact">
-            <StyledSection5>
-              <h2>
-                <strong>C</strong>ontact
-              </h2>
-              <ContactForm />
-            </StyledSection5>
-          </Element>
-        </StyledMain>
-      </StyledContainer>
+            <Element name="contact">
+              <StyledSection5>
+                <h2>
+                  <strong>C</strong>ontact
+                </h2>
+                <ContactForm />
+              </StyledSection5>
+            </Element>
+          </StyledMain>
+        </StyledContainer>
+      </StyledInnerContainer>
       <StyledFooter>
         <div role="button">
           <ScrollLink
@@ -430,22 +438,47 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
 
 export default IndexPage;
 
-const StyledIndexContainer = styled.div`
+const StyledIndexContainer = styled.div``;
+const StyledInnerContainer = styled.div`
   ${({ theme }) => theme.media.laptop`
     width: 62rem;
     margin: 0 auto;
   `};
 `;
-const StyledHeader = styled.header`
-  position: relative;
+
+const StyledHeaderWrapper = styled.header<{
+  isNavActive?: boolean;
+  isScrolled?: boolean;
+}>`
+  position: fixed;
+  z-index: ${zIndex.gbHeader};
+  padding-top: 4px;
   width: 100%;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 86%,
+    rgba(255, 255, 255, 0.7553396358543417) 92%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  ${({ isScrolled }) => isScrolled && css``};
+  ${({ isNavActive, theme }) => isNavActive && css``};
+  ${({ theme }) => theme.media.laptop`
+    width: 62rem;
+    margin: 0 auto;
+  `};
+`;
+
+const StyledHeader = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  padding: 16px;
-  background: linear-gradient(to bottom, #fff, #fff 80%, #fff 30%, transparent);
+  padding: 16px 16px 32px;
+  transition: all 500ms ease-in-out;
+
   img {
     width: 32px;
     height: 32px;
@@ -480,13 +513,13 @@ const StyledHeader = styled.header`
 
 const StyledOpenBtn = styled.div<{ isActive?: boolean }>`
   position: fixed;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
+  z-index: ${zIndex.gbBtn};
   background-color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
   cursor: pointer;
   width: 50px;
   height: 50px;
-  z-index: 999999;
   span {
     display: inline-block;
     transition: all 0.4s;
@@ -563,7 +596,7 @@ const StyledMain = styled.main`
 
 const StyledSection1 = styled.section`
   padding-top: 248px;
-  height: calc(100vh - 64px);
+  height: 100vh;
 `;
 
 const StyledSlogan = styled.div`
@@ -656,25 +689,6 @@ const StyledMemberAvatar = styled.div`
     height: 80px;
   }
 `;
-const StyledMemberInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const StyledMemberInfoName = styled.h4`
-  font-size: 1.66rem;
-  margin-bottom: 4px;
-  font-weight: 700;
-`;
-const StyledMemberInfoJob = styled.span`
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-`;
-const StyledMemberInfoJobPlace = styled.span`
-  font-size: 0.8rem;
-  color: #3c3c3c;
-`;
 
 /**
  * Footer
@@ -749,7 +763,7 @@ const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
   > div {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: ${zIndex.gbNav};
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -759,7 +773,7 @@ const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
   ul {
     opacity: 0;
     position: absolute;
-    z-index: 999;
+    z-index: ${zIndex.gbNav};
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -777,7 +791,7 @@ const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
   ${({ isPanelactive }) =>
     isPanelactive &&
     css`
-      z-index: 999;
+      z-index: ${zIndex.gbNav - 1};
       top: 0;
       width: 100%;
       height: 100vh;
@@ -801,7 +815,7 @@ const StyledGlobalNav = styled.nav<{ isPanelactive?: boolean }>`
 
 const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
   position: fixed;
-  z-index: 5;
+  z-index: ${zIndex.gbNav - 2};
   width: 100px;
   height: 100px;
   border-radius: 50%;

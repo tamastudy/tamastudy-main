@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useTimeout = (callback: () => void, delay: number | null) => {
   const savedCallback = useRef(callback);
@@ -76,4 +76,26 @@ export const useScrollBlock = (): [() => void, () => void] => {
   };
 
   return [blockScroll, allowScroll];
+};
+
+/**
+ * Scroll hook
+ */
+
+export const useScrollPosition = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return scrollPosition;
 };
