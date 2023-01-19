@@ -7,14 +7,6 @@ export interface CustomImage extends Image {
 
 const _images: CustomImage[] = [
   {
-    src: "/gallery/1.jpg",
-    original: "/gallery/1.jpg",
-    width: 320,
-    height: 360,
-    tags: [{ value: "2023 망년회", title: "2023 망년회" }],
-    caption: "After Rain (Jeshu John - designerspics.com)",
-  },
-  {
     src: "/gallery/4.jpg",
     original: "/gallery/4.jpg",
     width: 320,
@@ -90,4 +82,4 @@ const _images: CustomImage[] = [
   },
 ];
 
-export const images = [...shuffle(_images)] ;
+export const images = [...shuffle(_images)];
