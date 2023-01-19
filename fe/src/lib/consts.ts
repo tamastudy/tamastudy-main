@@ -3,3 +3,4 @@ export const zIndex = {
   gbNav: 999,
   gbBtn: 999
 };
+export const SCROLL_LINK_OFFSET = -64 - 16;

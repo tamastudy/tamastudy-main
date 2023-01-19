@@ -4,7 +4,7 @@ import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { Suspense, useRef, useState, useEffect, useCallback } from "react";
+import { Suspense, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import ProgressBar from "react-progressbar-on-scroll";
 import { Element, Link as ScrollLink } from "react-scroll";
@@ -15,14 +15,16 @@ import { A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
 // Fetching data from the JSON file
+import { zIndex } from "@/lib/consts";
 import { User } from "@/types/interfaces";
-import { useQuery, QueryErrorResetBoundary } from "@tanstack/react-query";
+import News from "@/ui/News";
+import GridGallery from "@/ui/GridGallery";
+import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import fsPromises from "fs/promises";
-import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import path from "path";
 import { ErrorBoundary } from "react-error-boundary";
-import { zIndex } from "@/lib/consts";
-import GridGallery from "@/ui/GridGallery";
+import { shuffle } from '@/lib/utils';
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -36,19 +38,6 @@ function ErrorFallback({ error, resetErrorBoundary }: any) {
   );
 }
 
-function shuffle<T>(array: T[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
-
-    // swap elements array[i] and array[j]
-    // we use "destructuring assignment" syntax to achieve that
-    // you'll find more details about that syntax in later chapters
-    // same can be written as:
-    // let t = array[i]; array[i] = array[j]; array[j] = t
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
 
 export const getServerSideProps: GetServerSideProps<{
   users: User[];
@@ -402,6 +391,15 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                   }}
                 </QueryErrorResetBoundary>
               </StyledSection3>
+            </Element>
+
+            <Element name="news">
+              <StyledSection2>
+                <h2>
+                  <strong>N</strong>ews
+                </h2>
+                <News />
+              </StyledSection2>
             </Element>
 
             <Element name="gallery">

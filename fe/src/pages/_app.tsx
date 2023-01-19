@@ -1,5 +1,5 @@
 import "swiper/css";
-
+import "react-image-lightbox/style.css";
 import { ReactQueryProvider } from "@/ui/ReactQueryProvider";
 import { Splash } from "@/ui/Splash";
 import type { AppProps, NextWebVitalsMetric } from "next/app";
