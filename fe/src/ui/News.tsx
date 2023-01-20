@@ -17,7 +17,7 @@ const News: React.FC<NewsProps> = () => {
   }>({
     category: "all",
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 3,
   });
 
   const fetchDataOptions = {
@@ -31,8 +31,6 @@ const News: React.FC<NewsProps> = () => {
     () => fetchData(fetchDataOptions),
     { keepPreviousData: true }
   );
-
-  console.log({ dataQuery });
 
   return (
     <StyledRootWrapper>
@@ -57,7 +55,7 @@ const News: React.FC<NewsProps> = () => {
           {dataQuery.data?.rows
             .sort((a, b) => b.createdAt - a.createdAt)
             .map((item) => (
-              <StyledItemWrapper>
+              <StyledItemWrapper key={item.id}>
                 <StyledHeader>
                   <span>
                     {format(new Date(item.createdAt), "dd MMM. yyyy")}
