@@ -1,5 +1,6 @@
 import { useScrollBlock, useScrollPosition } from "@/lib/hooks";
 import { History } from "@/ui/History";
+import { Splash } from "@/ui/Splash";
 import UserCard from "@/ui/UserCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import parse from "html-react-parser";
@@ -16,15 +17,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import * as yup from "yup";
 // Fetching data from the JSON file
 import { zIndex } from "@/lib/consts";
+import { shuffle } from "@/lib/utils";
 import { User } from "@/types/interfaces";
-import News from "@/ui/News";
 import GridGallery from "@/ui/GridGallery";
+import News from "@/ui/News";
 import { QueryErrorResetBoundary, useQuery } from "@tanstack/react-query";
 import fsPromises from "fs/promises";
 import { GetServerSideProps, NextPage } from "next";
 import path from "path";
 import { ErrorBoundary } from "react-error-boundary";
-import { shuffle } from '@/lib/utils';
+import MainSection from "@/ui/MainSection";
 
 const SCROLL_LINK_OFFSET = -64 - 16;
 
@@ -37,7 +39,6 @@ function ErrorFallback({ error, resetErrorBoundary }: any) {
     </div>
   );
 }
-
 
 export const getServerSideProps: GetServerSideProps<{
   users: User[];
@@ -85,268 +86,267 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
   };
 
   return (
-    <StyledIndexContainer>
-      <StyledInnerContainer>
-        <StyledHeaderWrapper
-          isNavActive={activeHamburger}
-          isScrolled={scrollPosition > 64}
+    <Splash>
+      <StyledIndexContainer>
+        <StyledInnerContainer>
+          <StyledHeaderWrapper
+            isNavActive={activeHamburger}
+            isScrolled={scrollPosition > 64}
+          >
+            <ProgressBar color={theme.colors?.primary ?? "#6500fc"} />
+            <StyledHeader>
+              <Image src="/t-p.svg" alt="" width={32} height={32} />
+              <div>
+                <ul>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="top"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>TOP</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="about"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>ABOUT</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="members"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>MEMBERS</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="news"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>NEWS</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="gallery"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>GALLERY</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="faq"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>FAQ</span>
+                    </ScrollLink>
+                  </li>
+                  <li>
+                    <ScrollLink
+                      activeClass={"active"}
+                      spy={true}
+                      smooth={true}
+                      duration={500}
+                      to="contact"
+                      offset={SCROLL_LINK_OFFSET}
+                      role="link"
+                      aria-label={`internal scroll link`}
+                    >
+                      <span>CONTACT</span>
+                    </ScrollLink>
+                  </li>
+                </ul>
+              </div>
+            </StyledHeader>
+          </StyledHeaderWrapper>
+        </StyledInnerContainer>
+        <StyledOpenBtn
+          role="button"
+          aria-pressed="false"
+          onClick={handleHamburger}
+          isActive={activeHamburger}
         >
-          <ProgressBar color={theme.colors?.primary ?? "#6500fc"} />
-          <StyledHeader>
-            <Image src="/t-p.svg" alt="" width={32} height={32} />
-            <div>
-              <ul>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="top"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>TOP</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="about"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>ABOUT</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="members"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>MEMBERS</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="news"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>NEWS</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="gallery"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>GALLERY</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="faq"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>FAQ</span>
-                  </ScrollLink>
-                </li>
-                <li>
-                  <ScrollLink
-                    activeClass={"active"}
-                    spy={true}
-                    smooth={true}
-                    duration={500}
-                    to="contact"
-                    offset={SCROLL_LINK_OFFSET}
-                    role="link"
-                    aria-label={`internal scroll link`}
-                  >
-                    <span>CONTACT</span>
-                  </ScrollLink>
-                </li>
-              </ul>
-            </div>
-          </StyledHeader>
-        </StyledHeaderWrapper>
-      </StyledInnerContainer>
-      <StyledOpenBtn
-        role="button"
-        aria-pressed="false"
-        onClick={handleHamburger}
-        isActive={activeHamburger}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </StyledOpenBtn>
-      <StyledGlobalNav isPanelactive={activeHamburger}>
-        <div>
-          <ul>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="top"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>TOP</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="about"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>ABOUT</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="members"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>MEMBERS</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="news"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>NEWS</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="gallery"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>GALLERY</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="faq"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>FAQ</span>
-              </ScrollLink>
-            </li>
-            <li>
-              <ScrollLink
-                activeClass={"active"}
-                spy={true}
-                smooth={true}
-                duration={500}
-                to="contact"
-                offset={SCROLL_LINK_OFFSET}
-                role="link"
-                aria-label={`internal scroll link`}
-                onClick={handleHamburger}
-              >
-                <span>CONTACT</span>
-              </ScrollLink>
-            </li>
-          </ul>
-        </div>
-      </StyledGlobalNav>
-      <StyledCircleBg isCircleActive={activeHamburger} />
-      <StyledInnerContainer>
-        <StyledContainer>
-          <StyledSubArea>
-            <nav>
-              <ul id="g-navi">
-                <li>
-                  <a
-                    href="https://www.instagram.com/tamastudy__tokyo/"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <img src="/insta.svg" alt="instagram" />
-                  </a>
-                </li>
-                <li>
-                  <a href="" target="_blank" rel="noreferrer">
-                    <img src="/twitter-outlined.svg" alt="twitter" />
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </StyledSubArea>
-
-          <StyledMain>
-            <Element name="top">
-              <StyledSection1>
+          <span></span>
+          <span></span>
+          <span></span>
+        </StyledOpenBtn>
+        <StyledGlobalNav isPanelactive={activeHamburger}>
+          <div>
+            <ul>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="top"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>TOP</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="about"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>ABOUT</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="members"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>MEMBERS</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="news"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>NEWS</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="gallery"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>GALLERY</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="faq"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>FAQ</span>
+                </ScrollLink>
+              </li>
+              <li>
+                <ScrollLink
+                  activeClass={"active"}
+                  spy={true}
+                  smooth={true}
+                  duration={500}
+                  to="contact"
+                  offset={SCROLL_LINK_OFFSET}
+                  role="link"
+                  aria-label={`internal scroll link`}
+                  onClick={handleHamburger}
+                >
+                  <span>CONTACT</span>
+                </ScrollLink>
+              </li>
+            </ul>
+          </div>
+        </StyledGlobalNav>
+        <StyledCircleBg isCircleActive={activeHamburger} />
+        <StyledInnerContainer>
+          <StyledContainer>
+            <StyledSubArea>
+              <nav>
+                <ul id="g-navi">
+                  <li>
+                    <a
+                      href="https://www.instagram.com/tamastudy__tokyo/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src="/insta.svg" alt="instagram" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="" target="_blank" rel="noreferrer">
+                      <img src="/twitter-outlined.svg" alt="twitter" />
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </StyledSubArea>
+            <StyledMain>
+              <MainSection elementName="top" isFirst>
                 <StyledSlogan>
                   <span>함</span>
                   <span>께</span>
@@ -362,14 +362,8 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                   <span>거</span>
                   <span>움</span>
                 </StyledSlogan>
-              </StyledSection1>
-            </Element>
-
-            <Element name="about">
-              <StyledSection2>
-                <h2>
-                  <strong>A</strong>BOUT
-                </h2>
+              </MainSection>
+              <MainSection elementName="about" hasTitle>
                 <StyledAbout>
                   <History />
                   <p>
@@ -381,14 +375,8 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                     함께 성장하는 타마스터디를 운영하고 있습니다.
                   </p>
                 </StyledAbout>
-              </StyledSection2>
-            </Element>
-
-            <Element name="members">
-              <StyledSection3>
-                <h2>
-                  <strong>M</strong>embers
-                </h2>
+              </MainSection>
+              <MainSection elementName="members" hasTitle>
                 <QueryErrorResetBoundary>
                   {({ reset }) => {
                     return (
@@ -419,32 +407,14 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                     );
                   }}
                 </QueryErrorResetBoundary>
-              </StyledSection3>
-            </Element>
-
-            <Element name="news">
-              <StyledSection2>
-                <h2>
-                  <strong>N</strong>ews
-                </h2>
+              </MainSection>
+              <MainSection elementName="news" hasTitle>
                 <News />
-              </StyledSection2>
-            </Element>
-
-            <Element name="gallery">
-              <StyledSection2>
-                <h2>
-                  <strong>G</strong>allery
-                </h2>
+              </MainSection>
+              <MainSection elementName="gallery" hasTitle>
                 <GridGallery />
-              </StyledSection2>
-            </Element>
-
-            <Element name="faq">
-              <StyledSection4>
-                <h2>
-                  <strong>F</strong>AQ
-                </h2>
+              </MainSection>
+              <MainSection elementName="faq" hasTitle>
                 <div>
                   <StyledAccordionArea>
                     <Accordion
@@ -465,43 +435,37 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                     />
                   </StyledAccordionArea>
                 </div>
-              </StyledSection4>
-            </Element>
-
-            <Element name="contact">
-              <StyledSection5>
-                <h2>
-                  <strong>C</strong>ontact
-                </h2>
+              </MainSection>
+              <MainSection elementName="contact" hasTitle>
                 <ContactForm />
-              </StyledSection5>
-            </Element>
-          </StyledMain>
-        </StyledContainer>
-      </StyledInnerContainer>
-      <StyledFooter>
-        <div role="button">
-          <ScrollLink
-            activeClass={"active"}
-            spy={true}
-            smooth={true}
-            duration={500}
-            to="top"
-            offset={SCROLL_LINK_OFFSET}
-            role="link"
-            aria-label={`internal scroll link`}
-          >
-            TOP
-          </ScrollLink>
-        </div>
-        <Image
-          src="/logo-small.svg"
-          width={240}
-          height={120}
-          alt="footer-logo"
-        />
-      </StyledFooter>
-    </StyledIndexContainer>
+              </MainSection>
+            </StyledMain>
+          </StyledContainer>
+        </StyledInnerContainer>
+        <StyledFooter>
+          <div role="button">
+            <ScrollLink
+              activeClass={"active"}
+              spy={true}
+              smooth={true}
+              duration={500}
+              to="top"
+              offset={SCROLL_LINK_OFFSET}
+              role="link"
+              aria-label={`internal scroll link`}
+            >
+              TOP
+            </ScrollLink>
+          </div>
+          <Image
+            src="/logo-small.svg"
+            width={240}
+            height={120}
+            alt="footer-logo"
+          />
+        </StyledFooter>
+      </StyledIndexContainer>
+    </Splash>
   );
 };
 
@@ -663,11 +627,6 @@ const StyledMain = styled.main`
  * Section 1
  */
 
-const StyledSection1 = styled.section`
-  padding-top: 248px;
-  height: 100vh;
-`;
-
 const StyledSlogan = styled.div`
   padding-right: 16px;
   padding-left: 16px;
@@ -681,27 +640,6 @@ const StyledSlogan = styled.div`
 /**
  * Section 2 - Members
  */
-
-const StyledSection2 = styled.section`
-  margin-bottom: 320px;
-
-  h2 {
-    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
-    font-size: 2rem;
-    strong {
-      font-size: 2.8rem;
-    }
-    margin-bottom: 48px;
-    ${({ theme }) => theme.media.laptop`
-      text-align: center;
-    `};
-  }
-
-  p {
-    line-height: 2;
-    word-break: break-all;
-  }
-`;
 
 const StyledAbout = styled.div`
   display: flex;
@@ -729,56 +667,12 @@ const StyledAbout = styled.div`
  * Section 3 - Members
  */
 
-const StyledSection3 = styled.section`
-  margin-bottom: 320px;
-  h2 {
-    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
-    font-size: 2rem;
-    strong {
-      font-size: 2.8rem;
-    }
-    margin-bottom: 48px;
-    ${({ theme }) => theme.media.laptop`
-      text-align: center;
-    `};
-  }
-
-  p {
-    line-height: 1.6;
-  }
-`;
-
 const StyledSwiperWrapper = styled.div`
   isolation: isolate;
   position: relative;
   z-index: 1;
   .swiper-slide {
     width: auto;
-  }
-`;
-
-/**
- * Member
- */
-const StyledMemberWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-const StyledMemberAvatar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
-  img {
-    border-radius: 50%;
-    border: 1px solid #eaeaea;
-    overflow: hidden;
-    width: 80px;
-    height: 80px;
   }
 `;
 
@@ -922,51 +816,6 @@ const StyledCircleBg = styled.div<{ isCircleActive?: boolean }>`
     css`
       transform: scale(50);
     `};
-`;
-
-/**
- * Section 4 - FAQ
- */
-const StyledSection4 = styled.section`
-  margin-bottom: 320px;
-  h2 {
-    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
-    font-size: 2rem;
-    strong {
-      font-size: 2.8rem;
-    }
-    margin-bottom: 48px;
-    ${({ theme }) => theme.media.laptop`
-      text-align: center;
-    `};
-  }
-
-  p {
-    line-height: 1.6;
-  }
-`;
-
-/**
- * Section 5 - Contact
- */
-const StyledSection5 = styled.section`
-  margin-bottom: 320px;
-
-  h2 {
-    color: ${({ theme }) => theme.colors?.primary ?? "#6500fc"};
-    font-size: 2rem;
-    strong {
-      font-size: 2.8rem;
-    }
-    margin-bottom: 48px;
-    ${({ theme }) => theme.media.laptop`
-      text-align: center;
-    `};
-  }
-
-  p {
-    line-height: 1.6;
-  }
 `;
 
 /**
@@ -1161,7 +1010,6 @@ const ContactForm: React.FC<any> = () => {
           <p>{errors.email?.message}</p>
         </div>
       </div>
-      
       <div>
         <label htmlFor="age">나이</label>
         <div>

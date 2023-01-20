@@ -1,18 +1,17 @@
-import "swiper/css";
-import "react-image-lightbox/style.css";
 import { ReactQueryProvider } from "@/ui/ReactQueryProvider";
-import { Splash } from "@/ui/Splash";
 import type { AppProps, NextWebVitalsMetric } from "next/app";
 import Head from "next/head";
+import { event, GoogleAnalytics } from "nextjs-google-analytics";
+import "react-image-lightbox/style.css";
 import {
   createGlobalStyle,
   css,
   CSSObject,
   FlattenSimpleInterpolation,
   SimpleInterpolation,
-  ThemeProvider,
+  ThemeProvider
 } from "styled-components";
-import { GoogleAnalytics, event } from "nextjs-google-analytics";
+import "swiper/css";
 
 import { Roboto } from "@next/font/google";
 
@@ -123,11 +122,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <div className={roboto.className}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          <Splash>
-            <ReactQueryProvider>
-              <Component {...pageProps} />
-            </ReactQueryProvider>
-          </Splash>
+          <ReactQueryProvider>
+            <Component {...pageProps} />
+          </ReactQueryProvider>
         </ThemeProvider>
       </div>
     </>

@@ -16,6 +16,7 @@ export const Splash: React.FC<SplashProps> = ({ children }) => {
   useTimeout(() => setFullFadeOut(true), 800);
   useTimeout(() => setAppear(true), 1000);
   useTimeout(() => setIsRemoved(true), 1200);
+
   return (
     <StyledBody appear={appear}>
       {isRemoved ? null : (
