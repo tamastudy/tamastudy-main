@@ -7,7 +7,7 @@ import {
   ColumnDef,
   flexRender,
 } from "@tanstack/react-table";
-import { Person, fetchData } from "@/data/news-data";
+import { News, fetchData } from "@/data/news-data";
 import styled from "styled-components";
 import { format, formatDistance, formatRelative, subDays } from "date-fns";
 
@@ -16,7 +16,7 @@ interface NewsProps {}
 const News: React.FC<NewsProps> = () => {
   const rerender = React.useReducer(() => ({}), {})[1];
 
-  const columns = React.useMemo<ColumnDef<Person>[]>(
+  const columns = React.useMemo<ColumnDef<News>[]>(
     () => [
       {
         accessorKey: "title",

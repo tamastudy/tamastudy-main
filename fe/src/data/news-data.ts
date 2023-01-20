@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 
 export type News = {
   id: string;
-  category: "notice" | "event" | "free";
+  category: string; // "notice" | "event" | "free";
   title: string;
   description: string;
   createdAt: number;
@@ -20,11 +20,6 @@ const range = (len: number) => {
 const newNews = (): News => {
   return {
     id: faker.datatype.uuid(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    age: faker.datatype.number(40),
-    visits: faker.datatype.number(1000),
-    progress: faker.datatype.number(100),
     category: faker.helpers.shuffle<News["category"]>([
       "notice",
       "event",
@@ -43,7 +38,7 @@ export function makeData(...lens: number[]) {
     return range(len).map((d): News => {
       return {
         ...newNews(),
-        subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
+        // subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
       };
     });
   };
@@ -54,17 +49,27 @@ export function makeData(...lens: number[]) {
 const data = makeData(50);
 
 export async function fetchData(options: {
+  category?: News["category"];
   pageIndex: number;
   pageSize: number;
 }) {
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500));
 
+  const filteredData = data.filter((value) => {
+    if (options.category) {
+      if (options.category === "all") return true;
+      return value.category === options.category;
+    } else {
+      return true;
+    }
+  });
+
   return {
-    rows: data.slice(
+    rows: filteredData.slice(
       options.pageIndex * options.pageSize,
       (options.pageIndex + 1) * options.pageSize
     ),
-    pageCount: Math.ceil(data.length / options.pageSize),
+    pageCount: Math.ceil(filteredData.length / options.pageSize),
   };
 }

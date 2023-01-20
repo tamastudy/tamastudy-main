@@ -2,7 +2,6 @@ import { fetchData } from "@/data/news-data";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { SVGProps } from "react";
 import styled, { css } from "styled-components";
 
@@ -11,15 +10,18 @@ const NEWS_CATEGORIES = ["ALL", "NOTICE", "EVENT", "FREE"] as const;
 interface NewsProps {}
 
 const News: React.FC<NewsProps> = () => {
-  const router = useRouter();
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  const [{ pageIndex, pageSize }, setPagination] = React.useState({
+  const [{ pageIndex, pageSize, category }, setPagination] = React.useState<{
+    category: string;
+    pageIndex: number;
+    pageSize: number;
+  }>({
+    category: "all",
     pageIndex: 0,
     pageSize: 5,
   });
 
   const fetchDataOptions = {
+    category,
     pageIndex,
     pageSize,
   };
@@ -36,27 +38,16 @@ const News: React.FC<NewsProps> = () => {
     <StyledRootWrapper>
       <StyledRootInnerWrapper>
         <StyledNewsHeader>
-          {NEWS_CATEGORIES.map((BUTTON_CATEGORY, BUTTON_CATEGORY_INDEX) => (
+          {NEWS_CATEGORIES.map((BUTTON_CATEGORY) => (
             <StyledCategoryButton
-              key={BUTTON_CATEGORY_INDEX}
+              key={BUTTON_CATEGORY}
               onClick={() => {
-                setSelectedIndex(BUTTON_CATEGORY_INDEX);
-                router.push(
-                  {
-                    pathname: router.pathname,
-                    query: {
-                      ...router.query,
-                      news_category: BUTTON_CATEGORY_INDEX,
-                    },
-                  },
-                  undefined,
-                  {
-                    scroll: false,
-                    shallow: true,
-                  }
-                );
+                setPagination((prev) => ({
+                  ...prev,
+                  category: BUTTON_CATEGORY.toLowerCase(),
+                }));
               }}
-              isActive={selectedIndex == BUTTON_CATEGORY_INDEX}
+              isActive={category == BUTTON_CATEGORY.toLowerCase()}
             >
               {BUTTON_CATEGORY}
             </StyledCategoryButton>
