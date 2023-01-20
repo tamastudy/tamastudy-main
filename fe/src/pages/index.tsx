@@ -144,6 +144,20 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                     spy={true}
                     smooth={true}
                     duration={500}
+                    to="news"
+                    offset={SCROLL_LINK_OFFSET}
+                    role="link"
+                    aria-label={`internal scroll link`}
+                  >
+                    <span>NEWS</span>
+                  </ScrollLink>
+                </li>
+                <li>
+                  <ScrollLink
+                    activeClass={"active"}
+                    spy={true}
+                    smooth={true}
+                    duration={500}
                     to="gallery"
                     offset={SCROLL_LINK_OFFSET}
                     role="link"
@@ -241,6 +255,21 @@ const IndexPage: NextPage<IndexPageProps> = ({ users }) => {
                 onClick={handleHamburger}
               >
                 <span>MEMBERS</span>
+              </ScrollLink>
+            </li>
+            <li>
+              <ScrollLink
+                activeClass={"active"}
+                spy={true}
+                smooth={true}
+                duration={500}
+                to="news"
+                offset={SCROLL_LINK_OFFSET}
+                role="link"
+                aria-label={`internal scroll link`}
+                onClick={handleHamburger}
+              >
+                <span>NEWS</span>
               </ScrollLink>
             </li>
             <li>
