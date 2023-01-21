@@ -12,6 +12,7 @@ import { HashingService } from 'src/iam/hashing/hashing.service';
 import { User } from 'src/users/entities/user.entity';
 import { AuthenticationController } from './authentication/authentication.controller';
 import { AuthenticationService } from './authentication/authentication.service';
+import { RolesGuard } from 'src/iam/authorization/guards/roles/roles.guard';
 
 @Module({
   imports: [
@@ -27,6 +28,10 @@ import { AuthenticationService } from './authentication/authentication.service';
     {
       provide: APP_GUARD,
       useClass: AuthenticationGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     AccessTokenGuard,
     RefreshTokenIdsStorage,

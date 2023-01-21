@@ -1,3 +1,4 @@
+import { Roles } from './../iam/authorization/decorators/role.decorator';
 import {
   Controller,
   Get,
@@ -13,6 +14,7 @@ import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Role } from 'src/users/enums/role.enum';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -23,6 +25,7 @@ export class CoffeesController {
     return this.coffeesService.create(createCoffeeDto);
   }
 
+  @Roles(Role.Regular)
   @Get()
   findAll(@ActiveUser() activeUser: ActiveUserData) {
     console.log(activeUser);
