@@ -14,7 +14,11 @@ import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Permissions } from 'src/iam/authorization/decorators/permission.decorator';
+import { Permission } from 'src/iam/authorization/permission.type';
 import { Role } from 'src/users/enums/role.enum';
+import { Policies } from 'src/iam/authorization/decorators/policy.decorator';
+import { FrameworkContributorPolicy } from 'src/iam/authorization/policies/framework-contributor.policy';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -25,9 +29,13 @@ export class CoffeesController {
     return this.coffeesService.create(createCoffeeDto);
   }
 
-  @Roles(Role.Regular)
+  // @Roles(Role.Admin)
+  // @Permissions(Permission.CreateCoffee)
+  @Policies(
+    new FrameworkContributorPolicy() /** new MinAgePolicy(18), new OnlyAdminPolicy() */,
+  )
   @Get()
-  findAll(@ActiveUser() activeUser: ActiveUserData) {
+  findAll(@ActiveUser() activeUser: ActiveUserData): string {
     console.log(activeUser);
     return this.coffeesService.findAll();
   }
