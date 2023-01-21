@@ -1,3 +1,4 @@
+import { Auth } from './../iam/authentication/decorators/auth.decorator';
 import { Roles } from './../iam/authorization/decorators/role.decorator';
 import {
   Controller,
@@ -19,7 +20,9 @@ import { Permission } from 'src/iam/authorization/permission.type';
 import { Role } from 'src/users/enums/role.enum';
 import { Policies } from 'src/iam/authorization/decorators/policy.decorator';
 import { FrameworkContributorPolicy } from 'src/iam/authorization/policies/framework-contributor.policy';
+import { AuthType } from 'src/iam/authentication/enums/auth-type.enum';
 
+@Auth(AuthType.Bearer, AuthType.ApiKey)
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
@@ -31,9 +34,11 @@ export class CoffeesController {
 
   // @Roles(Role.Admin)
   // @Permissions(Permission.CreateCoffee)
-  @Policies(
-    new FrameworkContributorPolicy() /** new MinAgePolicy(18), new OnlyAdminPolicy() */,
-  )
+  // @Policies(
+  //   new FrameworkContributorPolicy(
+  //     18,
+  //   ) /** new MinAgePolicy(18), new OnlyAdminPolicy() */,
+  // )
   @Get()
   findAll(@ActiveUser() activeUser: ActiveUserData): string {
     console.log(activeUser);

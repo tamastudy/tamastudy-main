@@ -5,6 +5,7 @@ import { PolicyHandlerStorage } from 'src/iam/authorization/policies/policy-hand
 import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 
 export class FrameworkContributorPolicy implements Policy {
+  constructor(private readonly sampleData?: number) {}
   name = 'FrameworkContributor';
 }
 
@@ -20,7 +21,8 @@ export class FrameworkContributorPolicyHandler
     policy: FrameworkContributorPolicy,
     user: ActiveUserData,
   ): Promise<void> {
-    const isContributor = user.email.endsWith('@trilon.io');
+    console.log({ policy });
+    const isContributor = user.email.endsWith('@gmail.com');
     if (!isContributor) {
       throw new Error('User is not a contributor');
     }

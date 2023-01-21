@@ -1,3 +1,4 @@
+import { ApiKey } from './../users/api-keys/entities/api-key.entity/api-key.entity';
 import { FrameworkContributorPolicyHandler } from './authorization/policies/framework-contributor.policy';
 import { RefreshTokenIdsStorage } from './authentication/refresh-token-ids.storage/refresh-token-ids.storage';
 import { Module } from '@nestjs/common';
@@ -13,14 +14,14 @@ import { HashingService } from 'src/iam/hashing/hashing.service';
 import { User } from 'src/users/entities/user.entity';
 import { AuthenticationController } from './authentication/authentication.controller';
 import { AuthenticationService } from './authentication/authentication.service';
-import { RolesGuard } from 'src/iam/authorization/guards/roles/roles.guard';
-import { PermissionsGuard } from 'src/iam/authorization/guards/permissions/permissions.guard';
 import { PoliciesGuard } from 'src/iam/authorization/guards/policies/policies.guard';
 import { PolicyHandlerStorage } from 'src/iam/authorization/policies/policy-handlers.storage';
+import { ApiKeysService } from './authentication/api-keys.service';
+import { ApiKeyGuard } from 'src/iam/authentication/guards/api-key/api-key.guard';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, ApiKey]),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
   ],
@@ -40,10 +41,12 @@ import { PolicyHandlerStorage } from 'src/iam/authorization/policies/policy-hand
       useClass: PoliciesGuard,
     },
     AccessTokenGuard,
+    ApiKeyGuard,
     RefreshTokenIdsStorage,
     AuthenticationService,
     PolicyHandlerStorage,
     FrameworkContributorPolicyHandler,
+    ApiKeysService,
   ],
   controllers: [AuthenticationController],
 })
