@@ -65,7 +65,7 @@ export class AuthenticationService {
     return this.generateTokens(user);
   }
 
-  private async generateTokens(user: User) {
+  async generateTokens(user: User) {
     const refreshTokenId = randomUUID();
     console.log({ refreshTokenId });
 
