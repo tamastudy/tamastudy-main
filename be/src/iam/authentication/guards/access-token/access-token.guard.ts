@@ -7,9 +7,8 @@ import {
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
-import jwtConfig from 'src/iam/config/jwt.config';
 import type { Request } from 'express';
+import jwtConfig from 'src/iam/config/jwt.config';
 import { REQUEST_USER_KEY } from 'src/iam/iam.constants';
 
 @Injectable()
@@ -20,25 +19,24 @@ export class AccessTokenGuard implements CanActivate {
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    // 💡 NOTE: For GraphQL applications, you’d have to use the
+    // wrapper GqlExecutionContext here instead.
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-
     if (!token) {
       throw new UnauthorizedException();
     }
-
     try {
-      const decoded = this.jwtService.verifyAsync(token, this.jwtConfiguration);
-      request[REQUEST_USER_KEY] = decoded;
-      console.log(decoded);
-      console.log(request[REQUEST_USER_KEY]);
-    } catch (err) {
+      const payload = await this.jwtService.verifyAsync(
+        token,
+        this.jwtConfiguration,
+      );
+      request[REQUEST_USER_KEY] = payload;
+      console.log(payload);
+    } catch {
       throw new UnauthorizedException();
     }
-
     return true;
   }
 
