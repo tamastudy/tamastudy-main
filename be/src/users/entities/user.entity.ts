@@ -20,7 +20,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ nullable: true }) // 👈
+  @Column({ nullable: true })
   password: string;
 
   @Column({ nullable: true })
@@ -28,6 +28,12 @@ export class User {
 
   @Column({ enum: Role, default: Role.Regular })
   role: Role;
+
+  @Column({ default: false })
+  isTfaEnabled: boolean;
+
+  @Column({ nullable: true })
+  tfaSecret: string;
 
   @Column({ enum: Permission, default: [], type: 'json' })
   permissions: PermissionType[];
