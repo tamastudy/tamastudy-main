@@ -15,6 +15,11 @@ import { ConfigType } from '@nestjs/config';
 import jwtConfig from 'src/iam/config/jwt.config';
 import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 import { RefreshTokenDto } from 'src/iam/authentication/dto/refresh-token.dto/refresh-token.dto';
+import {
+  InvalidatedRefreshTokenError,
+  RefreshTokenIdsStorage,
+} from 'src/iam/authentication/refresh-token-ids.storage/refresh-token-ids.storage';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class AuthenticationService {
@@ -24,6 +29,7 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
     private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
+    private readonly refreshTokenIdsStorage: RefreshTokenIdsStorage,
   ) {}
 
   async signUp(signUpDto: SignUpDto) {
@@ -60,6 +66,9 @@ export class AuthenticationService {
   }
 
   private async generateTokens(user: User) {
+    const refreshTokenId = randomUUID();
+    console.log({ refreshTokenId });
+
     const [accessToken, refreshToken] = await Promise.all([
       this.signToken<Partial<ActiveUserData>>(
         user.id,
@@ -69,8 +78,12 @@ export class AuthenticationService {
       this.signToken<Partial<ActiveUserData>>(
         user.id,
         this.jwtConfiguration.refreshTokenTtl,
+        {
+          refreshTokenId,
+        },
       ),
     ]);
+    await this.refreshTokenIdsStorage.insert(user.id, refreshTokenId);
     return {
       accessToken,
       refreshToken,
@@ -79,24 +92,38 @@ export class AuthenticationService {
 
   async refreshToken(refreshTokenDto: RefreshTokenDto) {
     try {
-      const { sub } = await this.jwtService.verifyAsync(
-        refreshTokenDto.refreshToken,
-        {
-          secret: this.jwtConfiguration.secret,
-          audience: this.jwtConfiguration.audience,
-          issuer: this.jwtConfiguration.issuer,
-        },
-      );
+      const { sub, refreshTokenId } = await this.jwtService.verifyAsync<
+        Pick<ActiveUserData, 'sub'> & { refreshTokenId: string }
+      >(refreshTokenDto.refreshToken, {
+        secret: this.jwtConfiguration.secret,
+        audience: this.jwtConfiguration.audience,
+        issuer: this.jwtConfiguration.issuer,
+      });
 
-      console.log(sub);
+      console.log({ sub, refreshTokenId });
 
       const user = await this.usersRepository.findOneByOrFail({
         id: sub,
       });
 
+      const isValid = await this.refreshTokenIdsStorage.validate(
+        user.id,
+        refreshTokenId,
+      );
+
+      if (isValid) {
+        await this.refreshTokenIdsStorage.invalidate(user.id);
+      } else {
+        throw new UnauthorizedException('Refresh token is invalid');
+      }
+
       return this.generateTokens(user);
     } catch (err) {
-      throw new UnauthorizedException('Refresh token is invalid');
+      if (err instanceof InvalidatedRefreshTokenError) {
+        // 새로 고침 토큰이 도난당했을 수 있음을 사용자에게 명확하게 알려야하는것일까?
+        throw new UnauthorizedException('Access denied');
+      }
+      throw new UnauthorizedException();
     }
   }
 
