@@ -3,6 +3,8 @@ services:
   postgres:
     image: "postgres:latest"
     restart: always
+    environment:
+      PGDATA: /var/lib/postgresql/data/some_name/
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
       - ./db/logs:/var/log
