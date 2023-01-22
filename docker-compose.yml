@@ -22,7 +22,7 @@ services:
       context: ./be
       dockerfile: Dockerfile
     ports:
-      - "6000:6000"
+      - "8080:8080"
     env_file:
       - .env
     networks:
@@ -51,6 +51,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3050:80"
+    depends_on:
+      - fe
+      - be
 networks:
   postgres:
     driver: bridge
