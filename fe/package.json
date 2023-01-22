@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "build": "NEXT_PUBLIC_GA_MEASUREMENT_ID=\"G-SYMZTEL7ND\" next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
