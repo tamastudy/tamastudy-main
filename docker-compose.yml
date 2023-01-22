@@ -4,7 +4,7 @@ services:
     image: "postgres:latest"
     restart: always
     environment:
-      PGDATA: /var/lib/postgresql/data/some_name/
+      PGDATA: /var/lib/postgresql/data/
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
       - ./db/logs:/var/log
