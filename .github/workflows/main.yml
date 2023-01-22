@@ -29,4 +29,5 @@ jobs:
             sudo git pull origin main
             echo "${{ secrets.BE_ENV_FILE }}" > ./be/.env
             echo "${{ secrets.FE_ENV_FILE }}" > ./fe/.env
+            echo "${{ secrets.FE_ENV_FILE }}" > ./admin/.env
             sudo docker compose up --build -d
