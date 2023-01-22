@@ -7,14 +7,12 @@ import { IamModule } from './iam/iam.module';
 import { ConfigModule } from '@nestjs/config';
 import { CoffeesModule } from './coffees/coffees.module';
 
-console.log({ TFA_APP_NAME: process.env.TFA_APP_NAME });
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.NODE_ENV === 'production' ? 'postgres' : 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'pass123',
