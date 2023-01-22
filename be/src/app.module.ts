@@ -14,7 +14,7 @@ console.log({ TFA_APP_NAME: process.env.TFA_APP_NAME });
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.NODE_ENV === 'production' ? 'db' : 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'pass123',
