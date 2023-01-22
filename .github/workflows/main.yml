@@ -16,6 +16,22 @@ jobs:
       - name: copy file via ssh password
         env:
           NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
+          NODE_ENV: production
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
+          POSTGRES_USER: postgres
+          POSTGRES_HOST: postgres
+          POSTGRES_DATABASE: postgres
+          POSTGRES_PASSWORD: pass123
+          POSTGRES_PORT: 5432
+          JWT_SECRET: YOUR_SECRET_KEY_HERE
+          JWT_TOKEN_AUDIENCE: localhost:3000
+          JWT_TOKEN_ISSUER: localhost:3000
+          JWT_ACCESS_TOKEN_TTL: 3600
+          JWT_REFRESH_TOKEN_TTL: 86400
+          TFA_APP_NAME: auth-playground
+          GOOGLE_CLIENT_ID: YOUR_GOOGLE_CLIENT_ID
+          GOOGLE_CLIENT_SECRET: YOUR_GOOGLE_CLIENT_SECRET
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
