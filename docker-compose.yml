@@ -3,6 +3,9 @@ services:
   postgres:
     image: "postgres:latest"
     restart: always
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+      - ./db/logs:/var/log
     env_file:
       - .env
   redis:
