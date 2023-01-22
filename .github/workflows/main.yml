@@ -40,6 +40,6 @@ jobs:
           script: |
             whoami
             cd ${{ secrets.DEPLOY_DIR }}
-            echo "${{ secrets.ENV_FILE }}" > .env
             sudo git pull origin main
+            echo "${{ secrets.ENV_FILE }}" > .env
             sudo docker compose up --build -d
