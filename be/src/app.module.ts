@@ -7,6 +7,8 @@ import { IamModule } from './iam/iam.module';
 import { ConfigModule } from '@nestjs/config';
 import { CoffeesModule } from './coffees/coffees.module';
 
+console.log({ TFA_APP_NAME: process.env.TFA_APP_NAME });
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
