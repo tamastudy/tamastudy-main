@@ -26,8 +26,6 @@ services:
       - .env
     networks:
       - redis
-    depends_on:
-      - postgres
   be:
     container_name: be
     build:
@@ -37,9 +35,6 @@ services:
       - "6000:6000"
     env_file:
       - .env
-    depends_on:
-      - postgres
-      - redis
     networks:
       - postgres
       - redis
