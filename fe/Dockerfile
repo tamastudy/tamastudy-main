@@ -1,5 +1,8 @@
 FROM node:alpine
 
+RUN --mount=type=secret,id=DEPLOY_USER \
+   echo DEPLOY_USER=$(cat /run/secrets/DEPLOY_USER)
+
 # Create app directory
 WORKDIR /usr/src/app
 
