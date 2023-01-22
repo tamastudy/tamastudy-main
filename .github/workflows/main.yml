@@ -12,6 +12,9 @@ jobs:
     environment: main
 
     steps:
+
+
+    steps:
       - uses: actions/checkout@v2
       - name: copy file via ssh password
         env:
@@ -38,6 +41,7 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
+            echo "${{ secrets.ENV_FILE }}" > .env
             whoami
             cd ${{ secrets.DEPLOY_DIR }}
             sudo git pull origin main
