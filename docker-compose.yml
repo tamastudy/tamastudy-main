@@ -1,19 +1,16 @@
 version: "3.8"
 services:
   postgres:
-    container_name: postgres
     image: "postgres:latest"
     restart: always
     env_file:
       - .env
   redis:
-    container_name: redis
     image: "redis:latest"
     restart: always
     env_file:
       - .env
   nginx:
-    container_name: nginx
     restart: always
     build:
       context: ./nginx
@@ -21,7 +18,6 @@ services:
     ports:
       - "3050:80"
   be:
-    container_name: be
     build:
       context: ./be
       dockerfile: Dockerfile
@@ -30,7 +26,6 @@ services:
     env_file:
       - .env
   fe:
-    container_name: fe
     build:
       context: ./fe
       dockerfile: Dockerfile
