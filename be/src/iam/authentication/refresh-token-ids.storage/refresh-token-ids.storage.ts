@@ -16,7 +16,7 @@ export class RefreshTokenIdsStorage
 
   onApplicationBootstrap() {
     this.redisClient = new Redis({
-      host: 'localhost',
+      host: process.env.NODE_ENV === 'production' ? 'redis' : 'localhost',
       port: 6379,
     });
   }

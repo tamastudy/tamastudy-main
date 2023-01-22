@@ -1,24 +1,21 @@
 version: "3.8"
 services:
   postgres:
+    container_name: postgres
     image: "postgres:latest"
     restart: always
     env_file:
       - .env
-    # environment:
-    #   - POSTGRES_USER: ${POSTGRES_USER}
-    #   - POSTGRES_HOST: ${POSTGRES_HOST}
-    #   - POSTGRES_DATABASE: ${POSTGRES_DATABASE}
-    #   - POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    #   - POSTGRES_PORT: 5432
     networks:
       - postgres
   redis:
+    container_name: redis
     image: "redis:latest"
     restart: always
     env_file:
       - .env
   nginx:
+    container_name: nginx
     restart: always
     build:
       context: ./nginx
@@ -30,6 +27,7 @@ services:
     networks:
       - redis
   be:
+    container_name: be
     build:
       context: ./be
       dockerfile: Dockerfile
@@ -37,23 +35,6 @@ services:
       - "6000:6000"
     env_file:
       - .env
-    # environment:
-    #   - NODE_ENV: production
-    #   - REDIS_HOST: "${REDIS_HOST}"
-    #   - REDIS_PORT: 6379
-    #   - POSTGRES_USER: "${POSTGRES_USER}"
-    #   - POSTGRES_HOST: "${POSTGRES_HOST}"
-    #   - POSTGRES_DATABASE: "${POSTGRES_DATABASE}"
-    #   - POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    #   - POSTGRES_PORT: 5432
-    #   - JWT_SECRET: "${JWT_SECRET}"
-    #   - JWT_TOKEN_AUDIENCE: "${JWT_TOKEN_AUDIENCE}"
-    #   - JWT_TOKEN_ISSUER: "${JWT_TOKEN_ISSUER}"
-    #   - JWT_ACCESS_TOKEN_TTL: "${JWT_ACCESS_TOKEN_TTL}"
-    #   - JWT_REFRESH_TOKEN_TTL: "${JWT_REFRESH_TOKEN_TTL}"
-    #   - TFA_APP_NAME: "${TFA_APP_NAME}"
-    #   - GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
-    #   - GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET}"
     depends_on:
       - postgres
       - redis
@@ -62,6 +43,7 @@ services:
     - redis
     tty: true
   fe:
+    container_name: fe
     build:
       context: ./fe
       dockerfile: Dockerfile
