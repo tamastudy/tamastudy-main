@@ -1,15 +1,5 @@
 version: "3.8"
 services:
-  nginx:
-    container_name: nginx
-    restart: always
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - "3050:80"
-    env_file:
-      - .env
   postgres:
     container_name: postgres
     image: "postgres:latest"
@@ -39,6 +29,11 @@ services:
       - postgres
       - redis
     tty: true
+    depends_on:
+      - serviceName: postgres
+        condition: service_healthy
+      - serviceName: redis
+        condition: service_healthy
   fe:
     container_name: fe
     build:
@@ -50,7 +45,14 @@ services:
       - .env
     environment:
       NODE_ENV: production
-
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3050:80"
 networks:
   postgres:
     driver: bridge
