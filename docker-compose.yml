@@ -6,16 +6,20 @@ services:
     restart: always
     env_file:
       - .env
-    networks:
-      - postgres
   redis:
     container_name: redis
     image: "redis:latest"
     restart: always
     env_file:
       - .env
-    networks:
-      - redis
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "3050:80"
   be:
     container_name: be
     build:
@@ -25,13 +29,6 @@ services:
       - "8080:8080"
     env_file:
       - .env
-    networks:
-      - postgres
-      - redis
-    tty: true
-    depends_on:
-      - postgres
-      - redis
   fe:
     container_name: fe
     build:
@@ -41,21 +38,3 @@ services:
       - "3000:3000"
     env_file:
       - .env
-    environment:
-      NODE_ENV: production
-  nginx:
-    container_name: nginx
-    restart: always
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - "3050:80"
-    depends_on:
-      - fe
-      - be
-networks:
-  postgres:
-    driver: bridge
-  redis:
-    driver: bridge
