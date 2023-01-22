@@ -30,10 +30,8 @@ services:
       - redis
     tty: true
     depends_on:
-      - serviceName: postgres
-        condition: service_healthy
-      - serviceName: redis
-        condition: service_healthy
+      - postgres
+      - redis
   fe:
     container_name: fe
     build:
