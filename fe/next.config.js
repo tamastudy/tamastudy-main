@@ -26,7 +26,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:slug*",
-        destination: "http://localhost:8080/:slug*",
+        destination: "http://localhost:6000/:slug*",
       },
     ];
   },

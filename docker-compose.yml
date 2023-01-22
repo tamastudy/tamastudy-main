@@ -30,7 +30,7 @@ services:
       context: ./be
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "6000:6000"
     env_file:
       - .env
     # environment:

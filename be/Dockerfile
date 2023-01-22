@@ -18,6 +18,6 @@ COPY . .
 
 RUN pnpm run build
 
-EXPOSE 8080
+EXPOSE 6000
 
 CMD [ "pm2-runtime", "start", "pnpm", "--", "start:prod" ]
