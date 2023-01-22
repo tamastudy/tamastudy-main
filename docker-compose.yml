@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  postgres:
+  db:
     image: "postgres:latest"
     restart: always
     env_file:
@@ -60,6 +60,7 @@ services:
     networks:
     - postgres
     - redis
+    tty: true
   fe:
     build:
       context: ./fe
