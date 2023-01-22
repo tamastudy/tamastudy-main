@@ -53,4 +53,3 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_GA_MEASUREMENT_ID: ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
