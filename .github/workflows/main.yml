@@ -38,8 +38,8 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            echo "${{ secrets.ENV_FILE }}" > .env
             whoami
             cd ${{ secrets.DEPLOY_DIR }}
+            echo "${{ secrets.ENV_FILE }}" > .env
             sudo git pull origin main
             sudo docker compose up --build -d
