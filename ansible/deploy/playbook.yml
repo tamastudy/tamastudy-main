@@ -1,0 +1,35 @@
+---
+- name: Deploy Tamastudy API
+  hosts: 'ec2'
+  become: true
+  tasks:
+    - name: Copy .env file to remote server
+      ansible.builtin.copy:
+        src: '../../.env.product'
+        dest: '{{ dest_dir }}/.env' # 외부에서 지정
+        mode: preserve # https://ansible.readthedocs.io/projects/lint/rules/risky-file-permissions/#correct-code
+
+    - name: Pull latest code from GitHub
+      ansible.builtin.git:
+        version: master
+        repo: '{{ git_repo }}' # 외부에서 지정
+        dest: '{{ dest_dir }}{{ repo_dir }}' # 외부에서 지정
+        key_file: '{{ dest_dir }}/.ssh/github-ssh' # 외부에서 지정
+        update: true
+
+    - name: Stop and remove all containers definedd in the current docker-compose file
+      ansible.builtin.command:
+        cmd: docker compose down
+        chdir: '{{ dest_dir }}{{ repo_dir }}' # 해당 docker-compose.yml의 위치
+
+    - name: Remove all unused images, containers, volumes, and networks created by docker-compose
+      ansible.builtin.command:
+        cmd: docker compose down --volumes --rmi all
+        chdir: '{{ dest_dir }}{{ repo_dir }}' # 해당 docker-compose.yml의 위치
+
+    - name: Docker Compose Up with Build
+      ansible.builtin.command:
+        cmd: docker compose up --build -d
+        chdir: '{{ dest_dir }}{{ repo_dir }}' # 외부에서 지정
+
+# ansible-playbook deploy.yml -e "dest_dir=/home/ubuntu repo_dir=tamastudy-api git_repo=git@github.com:teamtama/tamastudy-api.git"

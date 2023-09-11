@@ -1,0 +1,121 @@
+---
+- name: Ubuntu 20.04에 Docker, Docker Compose 및 Git 설치
+  hosts: 'ec2'
+  become: true # sudo 권한으로 실행
+  tasks:
+    # APT 패키지 업데이트
+    - name: Apt update를 실행합니다
+      ansible.builtin.apt:
+        update_cache: true
+        force_apt_get: true
+        cache_valid_time: 3600
+
+    # 기본 의존성 패키지 설치
+    - name: Install dependencies
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - gnupg-agent
+          - python3
+          - python3-pip
+          - git
+        state: present
+
+    # Docker 설치 및 설정
+    - name: Check if Docker is installed
+      ansible.builtin.stat:
+        path: /var/lib/docker
+      register: docker_installed
+
+    - name: Docker의 GPG 키 추가하기
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: not docker_installed.stat.exists
+
+    - name: Docker APT 리포지토리 추가하기
+      ansible.builtin.apt_repository:
+        repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
+        state: present
+      when: not docker_installed.stat.exists
+
+    - name: Docker 패키지 설치하기
+      ansible.builtin.apt:
+        name: docker-ce
+        state: present
+        update_cache: true
+      when: not docker_installed.stat.exists
+
+    - name: Docker 서비스 활성화 및 시작하기
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+      when: not docker_installed.stat.exists
+
+    - name: 현재 사용자를 docker 그룹에 추가하기
+      ansible.builtin.user:
+        name: '{{ ansible_env.SUDO_USER | default(ansible_env.USER) }}'
+        groups: docker
+        append: true
+      when: not docker_installed.stat.exists
+
+    - name: Check if Python libraries are installed
+      ansible.builtin.command:
+        cmd: pip3 show {{ item }}
+      register: pip_checks
+      loop:
+        - pyopenssl
+        - docker
+        - docker-compose
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install necessary Python libraries using pip
+      ansible.builtin.pip:
+        name: '{{ item.name }}'
+        executable: pip3
+        state: present
+      loop:
+        - { name: 'pyopenssl', index: 0 }
+        - { name: 'docker>=5.0.0', index: 1 }
+        - { name: 'docker-compose', index: 2 }
+      when: pip_checks.results[item.index].rc != 0
+
+    # Git 설치 및 설정
+    - name: Check if Git is installed
+      ansible.builtin.command:
+        cmd: git --version
+      register: git_version
+      failed_when: false
+      changed_when: false
+
+    - name: Git 사전 요구 사항 추가
+      ansible.builtin.apt:
+        name:
+          - software-properties-common
+        state: present
+      when: git_version.rc != 0
+
+    - name: Git PPA 추가
+      ansible.builtin.apt_repository:
+        repo: ppa:git-core/ppa
+        state: present
+      when: git_version.rc != 0
+
+    - name: Git 설치
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: true
+      when: git_version.rc != 0
+
+    # Git Repository 설정
+    - name: Copy SSH private key for git
+      ansible.builtin.copy:
+        src: ../../git-ssh/github-ssh
+        dest: '{{ dest_dir }}/.ssh/github-ssh'
+        mode: '0600'

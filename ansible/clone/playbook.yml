@@ -1,0 +1,16 @@
+---
+- name: Clone Git repository
+  hosts: 'ec2'
+  become: true # sudo 권한으로 실행
+  tasks:
+    - name: Check if the repo is already cloned
+      ansible.builtin.stat:
+        path: '{{ dest_dir }}{{ repo_dir }}/.git'
+      register: git_repo_cloned
+
+    - name: Clone Git repository
+      ansible.builtin.git:
+        repo: '{{ git_repo }}'
+        dest: '{{ dest_dir }}{{ repo_dir }}'
+        key_file: '{{ dest_dir }}/.ssh/github-ssh'
+      when: not git_repo_cloned.stat.exists

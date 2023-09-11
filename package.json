@@ -6,7 +6,10 @@
     "preinstall": "npx only-allow pnpm",
     "nx": "nx",
     "build:main:prod": "nx run main:build:production",
-    "serve:main:prod": "nx run main:serve:production"
+    "serve:main:prod": "nx run main:serve:production",
+    "setup": "ansible-playbook -i ansible/ec2_docker_compose_setup/inventory.ini ansible/ec2_docker_compose_setup/playbook.yml -e 'dest_dir=/home/ubuntu'",
+    "clone": "ansible-playbook -i ansible/ec2_docker_compose_setup/inventory.ini ansible/ec2_docker_compose_setup/playbook.yml -e 'git_repo=git@github.com:teamtama/tamastudy-main.git dest_dir=/home/ubuntu repo_dir=/tamastudy-main'",
+    "deploy": "ansible-playbook -i ansible/deploy/inventory.ini ansible/deploy/playbook.yml -e 'dest_dir=/home/ubuntu repo_dir=/tamastudy-main git_repo=git@github.com:teamtama/tamastudy-main.git'"
   },
   "private": true,
   "dependencies": {
