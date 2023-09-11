@@ -139,7 +139,7 @@ export const MainMobileNavigation: React.FC<MainMobileNavigationProps> = ({
                 <span>CONTACT</span>
               </ScrollLink>
             </li>
-            {user ? (
+            {/* {user ? (
               <li>
                 <Link href="/api/auth/logout">LOGOUT</Link>
               </li>
@@ -147,7 +147,7 @@ export const MainMobileNavigation: React.FC<MainMobileNavigationProps> = ({
               <li>
                 <Link href="/api/auth/login">LOGIN</Link>
               </li>
-            )}
+            )} */}
           </ul>
         </div>
       </StyledGlobalNav>

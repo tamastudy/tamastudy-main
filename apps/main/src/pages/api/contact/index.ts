@@ -3,7 +3,7 @@ import { prisma } from '@tama/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const newContact = await prisma.contact.create({
+    await prisma.contact.create({
       data: {
         username: req.body.username,
         email: req.body.email,

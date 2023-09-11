@@ -129,7 +129,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                   <span>CONTACT</span>
                 </ScrollLink>
               </li>
-              {user ? (
+              {/* {user ? (
                 <li>
                   <Link href="/api/auth/logout">LOGOUT</Link>
                 </li>
@@ -137,7 +137,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                 <li>
                   <Link href="/api/auth/login">LOGIN</Link>
                 </li>
-              )}
+              )} */}
             </ul>
           </div>
         </StyledHeader>
