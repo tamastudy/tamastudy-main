@@ -5,13 +5,13 @@
   tasks:
     - name: Copy .env file to remote server
       ansible.builtin.copy:
-        src: '../../.env.product'
+        src: '../../.env.production'
         dest: '{{ dest_dir }}/.env' # 외부에서 지정
         mode: preserve # https://ansible.readthedocs.io/projects/lint/rules/risky-file-permissions/#correct-code
 
     - name: Pull latest code from GitHub
       ansible.builtin.git:
-        version: master
+        version: main
         repo: '{{ git_repo }}' # 외부에서 지정
         dest: '{{ dest_dir }}{{ repo_dir }}' # 외부에서 지정
         key_file: '{{ dest_dir }}/.ssh/github-ssh' # 외부에서 지정

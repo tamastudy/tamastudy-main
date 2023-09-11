@@ -44,3 +44,7 @@ Thumbs.db
 # env
 .env
 .env.production
+
+git-ssh
+git-ssh/github-ssh
+git-ssh/github-ssh.pub
