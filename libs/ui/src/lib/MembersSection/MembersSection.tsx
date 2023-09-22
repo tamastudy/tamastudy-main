@@ -11,7 +11,7 @@ interface MembersSectionProps {
 
 export const MembersSection: React.FC<MembersSectionProps> = ({ users }) => {
   return (
-    <MainSection elementName="members" hasTitle>
+    <MainSection elementName={`members (${users.length})`} hasTitle>
       <StyledSwiperWrapper>
         <Swiper
           modules={[A11y]}

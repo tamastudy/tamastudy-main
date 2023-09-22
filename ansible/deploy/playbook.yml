@@ -22,10 +22,10 @@
         cmd: docker compose down
         chdir: '{{ dest_dir }}{{ repo_dir }}' # 해당 docker-compose.yml의 위치
 
-    - name: Remove all unused images, containers, volumes, and networks created by docker-compose
-      ansible.builtin.command:
-        cmd: docker compose down --volumes --rmi all
-        chdir: '{{ dest_dir }}{{ repo_dir }}' # 해당 docker-compose.yml의 위치
+    # - name: Remove all unused images, containers, volumes, and networks created by docker-compose
+    #   ansible.builtin.command:
+    #     cmd: docker compose down --volumes --rmi all
+    #     chdir: '{{ dest_dir }}{{ repo_dir }}' # 해당 docker-compose.yml의 위치
 
     - name: Docker Compose Up with Build
       ansible.builtin.command:

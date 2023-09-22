@@ -17,11 +17,11 @@ export const SideBar: React.FC<SideBarProps> = () => {
               <img src="/insta.svg" alt="instagram" />
             </a>
           </li>
-          <li>
+          {/* <li>
             <a href="" target="_blank" rel="noreferrer">
               <img src="/twitter-outlined.svg" alt="twitter" />
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </StyledSubArea>

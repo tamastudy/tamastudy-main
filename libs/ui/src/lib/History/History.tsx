@@ -26,46 +26,23 @@ const histories: History[] = [
     id: 3,
     year: 2019,
     month: 8,
-    title: '타마스터디 in 미조노구치',
+    title: '타마스터디 in mizonokuchi',
   },
   {
     id: 4,
-    year: 2019,
-    month: 12,
-    title: '멤버 이종석 Persol 퇴사 및 LINE 입사',
+    year: 2020,
+    month: 8,
+    title: '타마스터디 in share lounge',
   },
   {
     id: 5,
-    year: 2020,
-    month: 12,
-    title: '멤버 박동민 Arcphilia 입사',
-  },
-  {
-    id: 6,
-    year: 2021,
-    month: 2,
-    title: '멤버 감정한 Rakuten 퇴사 및 LINE 입사',
-  },
-  {
-    id: 7,
-    year: 2022,
-    month: 6,
-    title: '멤버 감정한 LINE 퇴사 및 AMAZON JP 입사',
-  },
-  {
-    id: 8,
-    year: 2022,
-    month: 12,
-    title: '멤버 박형일 AIS 퇴사 및 TeamLab 입사',
-  },
-  {
-    id: 9,
     year: 2023,
-    month: 2,
-    title: '멤버 박동민 Arcphilia 퇴사 및 TORIHADA 입사',
+    month: 8,
+    title: '타마스터디 in wacre',
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface HistoryProps {}
 
 function getAbsoluteHeight<T extends HTMLElement>(el: T) {
